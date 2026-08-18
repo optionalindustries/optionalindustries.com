@@ -2,8 +2,9 @@
    Store-Reviewer oeffnen das oft in schlechten Netzen, externe Fonts waeren
    ein Ladehaken ohne Gegenwert. */
 :root {
+  color-scheme: light dark;
   --paper:#FBFAF7; --surface:#FFFFFF; --ink:#1A1D1B; --ink-soft:#4C534E;
-  --ink-faint:#7A827C; --rule:#E2E5DF; --accent:#B8791C; --accent-ink:#8C5B10;
+  --ink-faint:#5F6862; --rule:#E2E5DF; --accent:#B8791C; --accent-ink:#8C5B10;
   --notice:#FDF6E7;
 }
 @media (prefers-color-scheme: dark) {
