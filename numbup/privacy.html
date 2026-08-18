@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — Optional Industries</title>
+<meta name="description" content="Privacy Policy for NumbUp by Optional Industries, Vienna, Austria.">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site">
+  <a class="wordmark" href="../index.html">Optional&nbsp;Industries</a>
+  <nav>
+    <a href="../numbup/privacy.html">Privacy</a>
+    <a href="../numbup/terms.html">Terms</a>
+    <a href="../numbup/delete-account.html">Delete account</a>
+  </nav>
+</header>
+<main>
+<div class="notice"><strong>Closed Alpha.</strong> These terms cover the
+invite-only test build of NumbUp. A separate policy will govern any public release.</div>
+
+<h1>Privacy Policy — NumbUp Alpha</h1>
+<p><strong>Effective Date:</strong> 2026-06-04 <strong>Replaces:</strong> Version of 2026-05-16 <strong>App Version:</strong> Alpha (Closed Testing) <strong>Publisher:</strong> Optional Industries, Vienna, Austria <strong>Contact:</strong> hello@optionalindustries.com</p>
+<hr>
+<p>This Privacy Policy describes how Optional Industries ("we", "our", "us") collects, uses, and protects your personal data when you participate in the Closed Alpha test of NumbUp ("the App").</p>
+<h2>1. Scope</h2>
+<p>This policy applies only to the NumbUp Closed Alpha test build, distributed exclusively via Apple TestFlight and Google Play Internal Testing to a limited group of invited testers. It does <strong>not</strong> apply to any future public release, which will be governed by an updated policy.</p>
+<h2>2. Data We Collect</h2>
+<div class="tablewrap"><table><thead><tr><th>Data</th><th>Why</th><th>Stored Where</th><th>How Long</th></tr></thead><tbody><tr><td>Anonymous account ID (UUID)</td><td>Created <strong>automatically on first app start</strong> (no sign-up screen) to identify your game account, sync your progress, and isolate your data from other players</td><td>Supabase (EU, Ireland)</td><td>Until you request deletion or end of Alpha</td></tr><tr><td>Session tokens</td><td>Keep you signed in between app starts</td><td>Locally on your device (app-private storage)</td><td>Until sign-out, deletion, or uninstall</td></tr><tr><td>Cloud save (game progress)</td><td>Back up and restore your full game state (currencies, items, progression — no free-text content)</td><td>Supabase (EU, Ireland)</td><td>Until you request deletion or end of Alpha</td></tr><tr><td>Server game records</td><td>Anti-cheat: premium currency balance, summon results, collections, and dungeon progress are tracked server-side</td><td>Supabase (EU, Ireland)</td><td>Until you request deletion or end of Alpha</td></tr><tr><td>Gameplay telemetry events</td><td>Understand how the game is played (see §3); events are linked to your anonymous account ID</td><td>Supabase (EU, Ireland)</td><td>No fixed retention period during Alpha; a retention period will be defined before public release</td></tr><tr><td>Display name</td><td>Shown next to your messages in World Chat. <strong>Auto-generated</strong> (e.g. "BraveEagle42837") — never your real name unless you change it to one</td><td>Supabase (EU, Ireland)</td><td>Until you request deletion or end of Alpha</td></tr><tr><td>Chat messages (World Chat)</td><td>Communication between testers; visible to all testers</td><td>Supabase (EU, Ireland)</td><td>Until you request deletion or end of Alpha</td></tr><tr><td>Email address</td><td><strong>Only if</strong> you sign in with an email Magic-Link. This option is <strong>not available in current Alpha builds</strong> — accounts are anonymous</td><td>Supabase Auth (EU, Ireland)</td><td>Until you request deletion or end of Alpha</td></tr><tr><td>Crash and performance reports</td><td><strong>Currently disabled in Alpha builds.</strong> If we enable them, they go to Sentry with personal identifiers filtered out before sending (see §4)</td><td>Sentry — hosting region to be confirmed before activation</td><td>Retention to be configured before activation</td></tr></tbody></table></div>
+<p><strong>Gameplay telemetry in detail:</strong> events such as session start/end, level and dungeon attempts, currency spending, summons, crafting, equipping, hatching, research, and feature unlocks — together with the platform name (e.g. "iOS") and a debug-build flag. Telemetry contains <strong>no</strong> name, email, message content, device identifiers, or location.</p>
+<p>We do <strong>not</strong> collect:</p>
+<ul><li>Real names, addresses, phone numbers, or government IDs</li><li>Payment information (Alpha is fully free, no in-app purchases active)</li><li>Location data (no GPS)</li><li>Contacts, photos, microphone, or camera data</li><li>Advertising identifiers (IDFA/AAID) — the App contains no advertising or tracking SDKs</li><li>Browsing or app activity outside NumbUp</li></ul>
+<h2>3. How We Use Your Data (and on What Basis)</h2>
+<div class="tablewrap"><table><thead><tr><th>Purpose</th><th>Data used</th><th>Legal basis</th></tr></thead><tbody><tr><td>Provide your game account, cloud save, and anti-cheat integrity</td><td>Account ID, cloud save, server game records</td><td>Performance of contract (GDPR Art. 6(1)(b))</td></tr><tr><td>World Chat between testers</td><td>Display name, message text</td><td>Performance of contract (Art. 6(1)(b))</td></tr><tr><td>Improve game balance and find where testers get stuck</td><td>Gameplay telemetry</td><td>Legitimate interest (Art. 6(1)(f)); the basis is under review before public release</td></tr><tr><td>Fix crashes and performance problems (when enabled)</td><td>Crash/performance reports</td><td>Same basis as telemetry</td></tr><tr><td>Authentication via email (when offered)</td><td>Email address</td><td>Performance of contract (Art. 6(1)(b)); never used for marketing</td></tr></tbody></table></div>
+<h2>4. Data Sharing</h2>
+<p>We <strong>do not sell or share</strong> your personal data with third parties for advertising or marketing.</p>
+<p>Technical processors who handle data on our behalf:</p>
+<ul><li><strong>Supabase (Supabase Inc.):</strong> Database, authentication, and realtime infrastructure. Project hosted in the <strong>EU (Ireland, AWS eu-west-1)</strong>. <a href="https://supabase.com/privacy">Supabase Privacy Policy</a></li><li><strong>Sentry (Functional Software, Inc.):</strong> Crash and performance reporting — <strong>currently inactive in Alpha builds</strong>.</li><li><strong>Apple / Google:</strong> Distribution via TestFlight / Internal Testing. Subject to their respective privacy policies.</li></ul>
+<h2>5. Data Storage and Security</h2>
+<ul><li>All game data is stored on EU-based servers (Supabase, Ireland).</li><li>Access is protected via Row Level Security — each account can only read its own data; chat messages are readable by all testers by design.</li><li>Server-side writes go through validated endpoints only; save data is integrity-protected (HMAC).</li><li>Session tokens are stored in the App's <strong>private storage area on your device</strong>. They are not encrypted at rest beyond what the operating system provides for app-private files; storing them in the platform keystore (iOS Keychain / Android Keystore) is planned before public release.</li><li>All network traffic is encrypted in transit (TLS).</li></ul>
+<h2>6. Your Rights (GDPR)</h2>
+<p>If you are in the EU, EEA, UK, or Switzerland, you have the right to:</p>
+<ul><li><strong>Access</strong> the personal data we hold about you</li><li><strong>Correct</strong> inaccurate data</li><li><strong>Delete</strong> your account and all associated data</li><li><strong>Export</strong> your data in a portable format</li><li><strong>Object</strong> to processing or <strong>restrict</strong> it</li><li><strong>Withdraw consent</strong> at any time (where processing is based on consent)</li><li><strong>Lodge a complaint</strong> with your local data protection authority (for Austria: dsb.gv.at)</li></ul>
+<p>Deletion and export are available <strong>in the app</strong>: open your <strong>profile</strong>, then <strong>Settings → Account</strong>, where you can <strong>Delete Account</strong> or <strong>Export My Data</strong>. Export gives you a machine-readable JSON copy of your data via the clipboard (a portable format, GDPR Art. 20). In-app deletion takes effect <strong>immediately and is irreversible</strong> — deleting your account removes <strong>all</strong> server-side data linked to it (account, saves, wallets, collections, chat messages, telemetry). As a fallback — for example if you have uninstalled the app — you can also email us at <strong>hello@optionalindustries.com</strong>, and we will fulfil deletion and export requests within 30 days.</p>
+<h2>7. Children</h2>
+<p>NumbUp Alpha is not intended for users under 16. We do not knowingly collect data from children under 16.</p>
+<h2>8. International Transfers</h2>
+<p>Game data is stored within the EU (Ireland). No transfers to third countries take place under the current Alpha scope. If crash reporting (Sentry) is activated with US hosting, this section will be updated with the applicable transfer mechanism (EU-US Data Privacy Framework / SCCs) <strong>before</strong> activation.</p>
+<h2>9. Cookies, Tracking, and Analytics</h2>
+<p>The App does not use cookies, advertising identifiers, or third-party advertising/tracking SDKs, and it does not track you across other companies' apps or websites.</p>
+<p>The App <strong>does</strong> collect first-party gameplay telemetry linked to your anonymous account ID, as described in §2 and §3 — used solely to improve NumbUp, never for advertising, and never shared for marketing purposes.</p>
+<h2>10. Changes to This Policy</h2>
+<p>We will notify Alpha testers via the in-app World Chat or email if this policy changes materially. Continued use of the App after such notice constitutes acceptance of the updated policy.</p>
+<h2>11. Contact</h2>
+<p><strong>Data Controller:</strong> Nikolaus Petr, natural person trading as "Optional Industries" <strong>Email:</strong> hello@optionalindustries.com <strong>Website:</strong> https://optionalindustries.com</p>
+<hr>
+<p><em>This policy was drafted for the closed Alpha test phase. It will be replaced with a full GDPR-compliant public policy before any commercial release.</em></p>
+</main>
+<footer>
+  <p>Optional Industries · Vienna, Austria · <a href="mailto:hello@optionalindustries.com">hello@optionalindustries.com</a></p>
+  <p class="fine">numbup is a trade mark application of Nikolaus Petr (EUTM 019410838).</p>
+</footer>
+</body>
+</html>
