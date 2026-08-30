@@ -2,50 +2,1511 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Home — Optional Industries</title>
-<meta name="description" content="Home for numbup by Optional Industries, Vienna, Austria.">
-<meta name="theme-color" media="(prefers-color-scheme: light)" content="#FBFAF7">
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#141715">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/style.css">
-</head>
-<body>
-<header class="site">
-  <a class="wordmark" href="index.html">Optional&nbsp;Industries</a>
-  <nav>
-    <a href="numbup/privacy.html">Privacy</a>
-    <a href="numbup/terms.html">Terms</a>
-    <a href="numbup/delete-account.html">Delete account</a>
-  </nav>
-</header>
-<main>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Optional Industries</title>
+<meta name="description" content="An independent game studio in Vienna. One person, a fleet of language models, 8,026 commits in 154 days to a closed alpha on iOS and Android.">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://optionalindustries.com/">
 
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Optional Industries">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://optionalindustries.com/">
+<meta property="og:title" content="One person. A fleet of language models. 154 days to a live alpha.">
+<meta property="og:description" content="An independent game studio in Vienna. One person, a fleet of language models, 8,026 commits in 154 days to a closed alpha. Every figure on the page carries the command that measured it.">
+<meta property="og:image" content="https://optionalindustries.com/assets/og/og-card.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A silver-armoured character swinging a sword into a crowd of clown enemies on a green tiled lane.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="One person. A fleet of language models. 154 days to a live alpha.">
+<meta name="twitter:description" content="An independent game studio in Vienna. 8,026 commits in 154 days to a closed alpha — every figure on the page carries the command that measured it.">
+<meta name="twitter:image" content="https://optionalindustries.com/assets/og/og-card.jpg">
+<meta name="twitter:image:alt" content="A silver-armoured character swinging a sword into a crowd of clown enemies on a green tiled lane.">
 
-<h1>Optional Industries</h1>
-<p class="lead">An independent game studio in Vienna, Austria. We make
-<strong>numbup</strong> — the last gacha you'll ever need. Currently in closed alpha
-testing.</p>
-<p>This site exists to host the documents our players and the app stores need. There is
-no marketing here yet.</p>
-<div class="cards">
-  <a class="card" href="numbup/privacy.html"><strong>Privacy Policy</strong>
-    <span>What numbup collects, why, and your rights under the GDPR.</span></a>
-  <a class="card" href="numbup/terms.html"><strong>Terms of Service</strong>
-    <span>The terms covering the closed alpha build.</span></a>
-  <a class="card" href="numbup/delete-account.html"><strong>Delete your account</strong>
-    <span>How to remove your account and every piece of data linked to it.</span></a>
+<style>
+@font-face {
+  font-family: "Baloo 2";
+  src: url("/assets/fonts/Baloo2-sub.woff2") format("woff2");
+  font-weight: 400 800; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("/assets/fonts/IBMPlexSans-sub.woff2") format("woff2");
+  font-weight: 100 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("/assets/fonts/IBMPlexSans-Italic-sub.woff2") format("woff2");
+  font-weight: 100 700; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/JetBrainsMono-sub.woff2") format("woff2");
+  font-weight: 400 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Inconsolata";
+  src: url("/assets/fonts/Inconsolata-sub.woff2") format("woff2");
+  font-weight: 200 900; font-style: normal; font-display: swap;
+}
+</style>
+
+<style>
+
+:root {
+  --paper:    #F1F3F6;
+  --panel:    #F7F9FB;
+  --card:     #ECF0F4;
+  --card-dn:  #E0E5EB;
+  --ink:      #1E2127;
+  
+  --ink-mute: rgba(30, 33, 39, 0.68);   
+  --ink-soft: rgba(30, 33, 39, 0.66);   
+  --ink-faint:rgba(30, 33, 39, 0.63);   
+  --border:   rgba(30, 33, 39, 0.14);
+  --hairline: rgba(30, 33, 39, 0.34);
+
+  --tin:      #16181D;
+  --tin-2:    #1E2127;
+  --frame:    #8A8E96;
+  --dark-text:#EDEFF3;
+  --dark-soft:#A8ADB6;
+  --dark-line:rgba(237, 239, 243, 0.16);
+
+  --amber:    #FF9500;
+  --amber-hi: #FFC247;
+  --amber-dn: #A65C0C;   
+  --amber-wash: rgba(255, 149, 0, 0.13);
+  --on-amber: #2A1900;
+
+  
+  --frost-tint: 244 246 249;
+  --frost-mix: 0.44;
+  --frost-blur: 9px;
+  --frost-fill: rgb(var(--frost-tint) / var(--frost-mix));
+  --frost-edge: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  --frost-raise: 0 4px 10px rgba(30, 33, 39, 0.16);
+  
+  --frost-raise-amber: 0 4px 10px rgba(131, 85, 21, 0.22);
+
+  
+  --grid-line: rgba(30, 33, 39, 0.055);
+  --grid-cell: 48px;
+
+  --display: "Baloo 2", "Arial Rounded MT Bold", ui-rounded, system-ui, sans-serif;
+  --body: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  
+  --code: Consolas, "Inconsolata", "Cascadia Mono", "DejaVu Sans Mono", Menlo, monospace;
+
+  
+  --gap-sec: clamp(3.4rem, 8vw, 5.4rem);
+  
+  --measure: 36rem;
+
+  color-scheme: light;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { overflow-x: hidden; overflow-x: clip; }
+
+body {
+  
+  overflow-x: hidden;
+  overflow-x: clip;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 1.0625rem;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  position: relative;   
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(70vw 46vw at 96% 420px, rgba(255, 149, 0, 0.10), transparent 70%),
+    radial-gradient(60vw 60vw at -8% 2100px, rgba(30, 33, 39, 0.06), transparent 70%),
+    radial-gradient(50vw 50vw at 80% 3400px, rgba(255, 255, 255, 0.75), transparent 70%);
+  
+  animation: paper-drift 90s ease-in-out infinite alternate;
+}
+@keyframes paper-drift {
+  from { transform: translate3d(0, 0, 0)      scale(1);    }
+  to   { transform: translate3d(-1.2%, 0.8%, 0) scale(1.06); }
+}
+@media (prefers-reduced-motion: reduce) {
+  body::before { animation: none; }
+}
+
+#sparks {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+#sparks b {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  font-family: var(--display, inherit);
+  font-weight: 800;
+  font-size: clamp(0.95rem, 2.4vw, 1.35rem);
+  letter-spacing: -0.01em;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
+  animation: word-rise 1150ms cubic-bezier(.2,.8,.25,1) forwards;
+}
+@keyframes word-rise {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.7)  rotate(var(--tilt)); }
+  18%  { opacity: 1; transform: translate(-50%, -62%) scale(1.06) rotate(var(--tilt)); }
+  100% { opacity: 0; transform: translate(-50%, -155%) scale(1)   rotate(var(--tilt)); }
+}
+#sparks i {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  margin: -5.5px 0 0 -5.5px;
+  background: currentColor;
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  animation: spark-fly 720ms cubic-bezier(.16,.7,.3,1) forwards;
+}
+@keyframes spark-fly {
+  from { opacity: 1; transform: translate3d(0, 0, 0) scale(0.35) rotate(0deg); }
+  to   { opacity: 0; transform: translate3d(var(--dx), var(--dy), 0) scale(1) rotate(var(--rot)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #sparks { display: none; }
+}
+
+.proof, .figures, .door, .doc {
+  background: var(--frost-fill);
+  -webkit-backdrop-filter: blur(var(--frost-blur));
+  backdrop-filter: blur(var(--frost-blur));
+  box-shadow: var(--frost-edge), var(--frost-raise);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .proof, .figures, .door, .doc { background: var(--panel); }
+  .fig.punch { background: var(--card); }
+}
+
+h1, h2, h3 {
+  font-family: var(--display);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: 0.002em;
+  text-wrap: balance;
+}
+
+p, li, figcaption { text-wrap: pretty; }
+
+a { color: inherit; }
+
+::selection { background: var(--amber-hi); color: var(--on-amber); }
+
+:is(a, button):focus-visible {
+  outline: 3px solid var(--amber-dn);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+:is(.stage, .meta) :is(a, button):focus-visible { outline-color: var(--amber); }
+
+.wrap {
+  max-width: 1020px;
+  margin: 0 auto;
+  padding-inline: clamp(1.1rem, 4vw, 2rem);
+}
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.eyebrow::before {
+  content: "";
+  width: 14px;
+  height: 2px;
+  background: var(--amber);
+  flex: none;
+}
+.stage .eyebrow, .meta .eyebrow { color: var(--dark-soft); }
+
+.flow {
+  background-image: linear-gradient(100deg,
+    var(--ink) 0 30%,
+    var(--amber) 42%, var(--amber-hi) 50%, var(--amber) 58%,
+    var(--ink) 70% 100%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: hero-flow 3.6s linear infinite;
+}
+@keyframes hero-flow { to { background-position: -100% 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .flow { animation: none; color: var(--amber-dn); background-image: none; }
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+.top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding-block: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+.wordmark {
+  font-family: var(--display);
+  font-size: 1.4rem;
+  text-decoration: none;
+}
+.top nav {
+  display: flex;
+  gap: 1.35rem;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+}
+.top nav a {
+  text-decoration: none;
+  color: var(--ink-mute);
+  border-bottom: 2px solid transparent;
+  padding-bottom: 3px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.top nav a:hover { color: var(--ink); border-bottom-color: var(--amber); }
+
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 80;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: 0 0 5px 0;
+}
+.skip:focus { left: 0; }
+
+:target { scroll-margin-top: 1.75rem; }
+
+.hero { padding-block: clamp(3rem, 8vw, 5rem) clamp(1.8rem, 4vw, 2.6rem); }
+.hero h1 {
+  font-size: clamp(2.25rem, 6.2vw, 3.75rem);
+  max-width: 17ch;
+  margin-block: 0.85rem 1.15rem;
+}
+.hero .lead {
+  max-width: var(--measure);
+  color: var(--ink-mute);
+  font-size: clamp(1.02rem, 2.2vw, 1.14rem);
+}
+.hero .lead + .lead { margin-top: 0.75rem; }
+.hero .lead b { color: var(--ink); font-weight: 600; }
+
+.proof {
+  
+  margin-top: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 0;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.proof-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.9rem 2rem;
+  padding: 1.35rem clamp(1.1rem, 3vw, 1.7rem) 0.6rem;
+}
+.proof-head h2 {
+  font-size: clamp(1.25rem, 3vw, 1.6rem);
+  margin-top: 0.45rem;
+  max-width: 32ch;   
+}
+.proof-read {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  text-align: right;
+}
+.proof-read b {
+  display: block;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.9rem;
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.chart-box {
+  position: relative;
+  padding: 0.3rem clamp(1.1rem, 3vw, 1.7rem) 0.35rem;
+}
+.chart-box canvas { display: block; width: 100%; height: 230px; }
+@media (max-width: 640px) { .chart-box canvas { height: 180px; } }
+
+.axis {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.15rem clamp(1.1rem, 3vw, 1.7rem) 0;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+}
+.proof-foot {
+  border-top: 1px dashed var(--border);
+  margin-top: 0.9rem;
+  padding: 0.85rem clamp(1.1rem, 3vw, 1.7rem) 1.05rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.6rem;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.03em;
+}
+.proof-foot .mark { color: var(--amber-dn); }
+
+section { margin-bottom: var(--gap-sec); }
+
+.stage {
+  background: var(--tin);
+  color: var(--dark-text);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.stage-inner {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+  padding: clamp(1.7rem, 4.5vw, 2.9rem);
+}
+@media (max-width: 720px) {
+  .stage-inner { grid-template-columns: 1fr; }
+}
+.stage h2 {
+  font-size: clamp(1.85rem, 4.6vw, 2.6rem);
+  margin-block: 0.55rem 0.85rem;
+}
+.stage h2 .lit { color: var(--amber); }
+.stage p { color: var(--dark-soft); max-width: 42ch; }
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 1.35rem;
+}
+.tag {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--dark-line);
+  border-radius: 999px;
+  color: var(--dark-soft);
+}
+.tag.live { border-color: rgba(255, 149, 0, 0.42); color: var(--amber-hi); }
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.78rem 1.35rem;
+  background: var(--amber);
+  color: var(--on-amber);
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.05rem;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.15s, transform 0.15s;
+}
+.cta:hover { background: var(--amber-hi); transform: translateY(-1px); }
+.cta .arrow { font-family: var(--mono); font-weight: 700; }
+
+.cta-row { display: flex; align-items: center; flex-wrap: wrap; gap: 0.6rem 1.3rem; margin-top: 1.8rem; }
+.cta-alt {
+  color: var(--dark-soft);
+  font-size: 0.92rem;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+.cta-alt:hover { color: var(--amber-hi); }
+
+.tin {
+  justify-self: center;
+  width: min(210px, 62vw);
+  aspect-ratio: 3 / 4;
+  border-radius: 16px 16px 10px 10px;
+  background: linear-gradient(180deg, #FCFDFE 0 13%, var(--card) 13% 100%);
+  border: 2px solid var(--frame);
+  box-shadow: 0 22px 46px rgba(0,0,0,0.5), 0 2px 0 rgba(255,255,255,0.16) inset;
+  padding: 1.1rem 0.95rem;
+  display: flex;
+  flex-direction: column;
+  color: var(--ink);
+  position: relative;
+  transform: rotate(-1.1deg);
+}
+.tin::before {
+  content: "";
+  position: absolute;
+  inset: 13% 0.85rem auto;
+  height: 1px;
+  background: var(--hairline);
+}
+
+.tin::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 14px 14px 8px 8px;
+  background: linear-gradient(102deg, rgba(255,255,255,0) 38%, rgba(255,255,255,0.55) 47%, rgba(255,255,255,0) 56%);
+  pointer-events: none;
+}
+.tin-brand {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  line-height: 1;
+  text-align: center;
+  margin-bottom: auto;
+}
+.tin-brand sup { color: var(--amber-dn); font-size: 0.62em; }
+.tin-label {
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  line-height: 1.75;
+  color: var(--ink-mute);
+  letter-spacing: 0.02em;
+}
+.tin-label b { color: var(--ink); font-weight: 700; }
+.tin-rule { height: 1px; background: var(--border); margin-block: 0.5rem; }
+.tin-dose {
+  font-family: var(--display);
+  font-size: 0.82rem;
+  text-align: center;
+  color: var(--amber-dn);
+}
+
+.loot {
+  border-top: 1px solid var(--dark-line);
+  padding: clamp(1.15rem, 3vw, 1.55rem) clamp(1.7rem, 4.5vw, 2.9rem) clamp(1.4rem, 3.5vw, 1.85rem);
+}
+.loot-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.15rem clamp(1.1rem, 3.6vw, 2.5rem);
+  margin-top: 1.05rem;
+}
+.loot-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 4.9rem;
+}
+.loot-item img { display: block; width: 44px; height: 44px; }
+.loot-item span {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.05em;
+  line-height: 1.35;
+  text-align: center;
+  color: var(--dark-soft);
+}
+
+.sec-head { max-width: var(--measure); margin-bottom: 1.9rem; }
+.sec-head h2 {
+  font-size: clamp(1.55rem, 3.8vw, 2.05rem);
+  margin-block: 0.55rem 0.7rem;
+}
+.sec-head p { color: var(--ink-mute); }
+.sec-head a { color: var(--amber-dn); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+.bar {
+  display: flex;
+  height: 14px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--card-dn);
+}
+.bar i { display: block; height: 100%; }
+.bar .done { background: var(--ink); }
+.bar .part { background: var(--amber); }
+.bar .open { background: var(--card-dn); box-shadow: inset 0 0 0 1px var(--border); }
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.4rem;
+  margin-top: 0.65rem;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--ink-mute);
+}
+.legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
+.legend i { width: 9px; height: 9px; border-radius: 2px; flex: none; }
+.legend .k-done { background: var(--ink); }
+.legend .k-part { background: var(--amber); }
+.legend .k-open { background: var(--card-dn); box-shadow: inset 0 0 0 1px var(--hairline); }
+.legend b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+.figures {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+@media (max-width: 880px) { .figures { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .figures { grid-template-columns: 1fr; } }
+.fig {
+  min-width: 0;   
+  
+  background: transparent;
+  box-shadow: 0 0 0 1px var(--border);
+  padding: 1.25rem 1.15rem 1.05rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+}
+.fig .n {
+  font-family: var(--display);
+  font-size: clamp(1.85rem, 4.4vw, 2.35rem);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.fig .what {
+  font-size: 0.9rem;
+  color: var(--ink-mute);
+  line-height: 1.42;
+}
+
+.src {
+  margin-top: auto;
+  font-family: var(--code);
+  font-size: 0.66rem;
+  line-height: 1.5;
+  color: var(--ink-mute);
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  padding: 0.34rem 0.5rem;
+  
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.fig .what, .fig .legend { margin-bottom: 0.55rem; }
+
+.fig .bar { margin-top: 0.75rem; height: 10px; }
+.fig .legend { margin-top: 0.5rem; font-size: 0.63rem; gap: 0.25rem 0.85rem; }
+
+.fig.punch { background: rgba(30, 33, 39, 0.045); }
+
+.then-now { margin-top: 2.75rem; }
+.tn-pair {
+  display: flex;
+  gap: 1.75rem;
+  align-items: flex-start;
+  margin-top: 1.1rem;
+}
+
+.tn-pair figure { margin: 0; min-width: 0; }
+.tn-pair figure:first-child  { flex: 0.678 1 0; }
+.tn-pair figure:nth-child(2) { flex: 0.500 1 0; }
+.tn-pair img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--card);
+}
+.tn-cap {
+  margin-top: 0.65rem;
+  font-family: var(--code);
+  font-size: 0.68rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.tn-cap b { font-weight: 600; color: var(--ink); }
+.tn-cap span { display: block; color: var(--ink-faint); }
+@media (max-width: 620px) {
+  .tn-pair { flex-direction: column; gap: 1.25rem; }
+  .tn-pair figure:first-child, .tn-pair figure:nth-child(2) { flex: 0 0 auto; }
+}
+.fig.punch .n { color: var(--amber-dn); }
+
+.eras {
+  border-top: 1px solid var(--dark-line);
+  padding: clamp(1.15rem, 3vw, 1.55rem) clamp(1.7rem, 4.5vw, 2.9rem) clamp(1.4rem, 3.5vw, 1.85rem);
+}
+.era-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1.1rem;
+}
+.era-row figure { margin: 0; min-width: 0; }
+.era-row img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--card);
+}
+
+.era-row img { border-color: var(--dark-line); }
+.era-cap {
+  margin-top: 0.55rem;
+  font-family: var(--code);
+  font-size: 0.68rem;
+  line-height: 1.5;
+  color: var(--dark-soft);
+}
+.era-cap b { font-weight: 600; color: var(--dark-text); }
+.era-cap span { display: block; color: var(--dark-soft); opacity: 0.72; }
+
+.era-foot {
+  display: grid;
+  grid-template-columns: minmax(0, 215px) 1fr;
+  gap: clamp(1.2rem, 3vw, 2rem);
+  align-items: start;
+  margin-top: 1.5rem;
+}
+.era-foot figure { margin: 0; min-width: 0; }
+.era-foot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--dark-line);
+  border-radius: 7px;
+}
+.era-note {
+  margin-top: 0;
+  max-width: 46ch;
+  font-size: 0.83rem;
+  line-height: 1.6;
+  color: var(--dark-soft);
+}
+@media (max-width: 620px) {
+  .era-foot { grid-template-columns: 1fr; }
+  .era-foot figure { max-width: 215px; }
+}
+@media (max-width: 620px) {
+  .era-row { grid-template-columns: 1fr; gap: 1.25rem; }
+}
+
+.note-line {
+  margin-top: 1.5rem;
+  max-width: calc(var(--measure) + 1.15rem);
+  color: var(--ink-mute);
+  font-size: 0.97rem;
+}
+.figures + .note-line { margin-top: 2.2rem; }
+.note-line strong { color: var(--ink); font-weight: 650; letter-spacing: -0.003em; }
+
+.num {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 0.88em;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+  color: var(--ink);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0;           
+  padding: 0.1em 0.34em;
+  margin-inline: 0.06em;
+  white-space: nowrap;
+}
+.stage .num, .meta .num {
+  color: var(--dark-text);
+  background: rgba(237, 239, 243, 0.09);
+  border-color: var(--dark-line);
+}
+
+mark {
+  background: var(--amber-wash);
+  color: inherit;
+  padding: 0.1em 0.26em;
+  margin-inline: -0.08em;
+  border-radius: 3px;
+  box-shadow: inset 0 -2px 0 rgba(255, 149, 0, 0.42);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.note-line.key {
+  border-inline-start: 2px solid var(--amber);
+  padding-inline-start: 1rem;
+  margin-inline-start: -1rem;
+  max-width: calc(var(--measure) + 1rem);
+}
+.note-line.key + .note-line { margin-top: 1.15rem; }
+
+.note-line.errata {
+  margin-top: 2rem;
+  padding: 1.05rem 1.2rem 1.1rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-inline-start: 2px solid var(--ink-soft);
+  border-radius: 0 5px 5px 0;
+  font-size: 0.93rem;
+  max-width: var(--measure);
+}
+.note-line.errata::before {
+  content: "Errata";
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 0.55rem;
+}
+.note-line a { color: var(--amber-dn); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+.hero-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4rem;
+  margin-top: 1.6rem;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+}
+.hero-jump a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 2px solid var(--amber);
+  padding-bottom: 3px;
+}
+.hero-jump a::after { content: " \2193"; color: var(--ink-soft); }
+.hero-jump a:hover { color: var(--amber-dn); }
+
+.doors {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 0.9rem;
+}
+.door {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.3rem 1.3rem 1.15rem;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+
+.door:hover { border-color: var(--amber); box-shadow: var(--frost-edge), var(--frost-raise-amber); transform: translateY(-2px); }
+.door .who {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--amber-dn);
+  margin-bottom: 0.7rem;
+}
+.door h3 { font-size: 1.22rem; margin-bottom: 0.5rem; }
+.door p { font-size: 0.9rem; color: var(--ink-mute); line-height: 1.5; margin-bottom: 1.1rem; }
+.door .go {
+  margin-top: auto;   
+  padding-top: 0.85rem;
+  border-top: 1px dashed var(--border);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.45rem;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+.door .go .arrow { color: var(--amber-dn); transition: transform 0.15s; }
+.door:hover .go .arrow { transform: translateX(3px); }
+
+.docs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 0.85rem;
+}
+.doc {
+  display: block;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.05rem 1.15rem;
+  transition: border-color 0.15s;
+}
+.doc:hover { border-color: var(--hairline); }
+.doc strong { display: block; font-weight: 600; margin-bottom: 0.28rem; }
+.doc span { font-size: 0.88rem; color: var(--ink-mute); line-height: 1.45; }
+
+.contact p { max-width: var(--measure); color: var(--ink-mute); }
+.contact p + p { margin-top: 0.7rem; }
+.contact a { color: var(--amber-dn); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+footer.site {
+  border-top: 1px solid var(--border);
+  padding-block: 1.6rem 3rem;
+  font-size: 0.86rem;
+  color: var(--ink-mute);
+}
+footer.site .fine {
+  margin-top: 0.55rem;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+}
+
+footer.site .imprint {
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--border);
+  max-width: 78ch;
+  font-size: 0.78rem;
+  line-height: 1.62;
+  color: var(--ink-soft);
+}
+footer.site .imprint a {
+  color: var(--ink-mute);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+footer.site .imprint a:hover { color: var(--amber-dn); }
+
+.ad { font-weight: 600; color: var(--ink-mute); }
+
+footer.site .imprint-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 0.3rem;
+}
+
+</style>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="wrap">
+
+  <header class="top">
+    <a class="wordmark" href="#">Optional&nbsp;Industries</a>
+    <nav>
+      <a href="#numbup">numbup</a>
+      <a href="#receipts">How we work</a>
+      <a href="#work">Investors &amp; press</a>
+      <a href="#docs">Legal</a>
+    </nav>
+  </header>
+
+  <main id="main">
+  <div class="hero">
+    <p class="eyebrow">Vienna, Austria</p>
+    <h1>One person. A&nbsp;fleet of language models. <span class="flow">154&nbsp;days</span> to a live alpha.</h1>
+    <p class="lead">Optional Industries is an independent game studio run by Nik — one
+       person, and a standing fleet of language models that does the typing, the testing and the
+       nightly work, never the deciding. The product is <b>numbup</b>, a 3D gacha auto-battler, in closed alpha
+       on iOS and Android since 22&nbsp;August.</p>
+    <p class="lead">Nik runs a payroll department for a living and had never written a line
+       of C# before the first commit. numbup was built in the hours around that job.</p>
+    <p class="lead">Every figure on this page is measured from the repository when the page is
+       built. Nobody types these numbers in by hand — including every one further down.</p>
+    
+    <p class="hero-jump">
+      <a href="#numbup">See numbup</a>
+      <a href="#receipts">How it was built</a>
+    </p>
+  </div>
+
+  
+  <section id="numbup" class="stage">
+    <div class="stage-inner">
+      <div>
+        <p class="eyebrow">The product</p>
+        <h2>numbup<span class="lit">^</span></h2>
+        
+        <p>A 3D gacha auto-battler in colorful flashy pixels. Every random pull has its odds one
+           tap away, before you pull &mdash; including the tiers you can&rsquo;t equip yet.
+           No purchases are active in the alpha. Closed alpha, with testers on Discord.</p>
+        <div class="tags">
+          <span class="tag">iOS + Android</span>
+          <span class="tag">Godot 4.6</span>
+          <span class="tag live">Build 34</span>
+          <span class="tag">Closed alpha</span>
+        </div>
+        <div class="cta-row">
+          <a class="cta" href="https://numbup.app">Open numbup.app <span class="arrow">→</span></a>
+          <a class="cta-alt" href="https://discord.gg/6MsjYg2p4X">Join the alpha on Discord</a>
+        </div>
+      </div>
+
+      <div class="tin" aria-hidden="true">
+        <div class="tin-brand">numbup<sup>^</sup></div>
+        <div class="tin-label">
+          <b>DIRECTIONS</b><br>
+          Tap the machine. Equip what falls out.<br>
+          Repeat until numbers go up.
+          <div class="tin-rule"></div>
+          <b>SIDE EFFECTS</b><br>
+          include triumph.
+        </div>
+        <div class="tin-rule"></div>
+        <div class="tin-dose">ODDS ON THE LABEL</div>
+      </div>
+    </div>
+
+    
+    <div class="eras">
+      <p class="eyebrow">Where a run goes</p>
+      <div class="era-row">
+        <figure>
+          <img src="/assets/shots/eras/era1_PolishedSilver_vsclown.webp" width="1920" height="1080"
+               loading="lazy" decoding="async"
+               alt="A silver-armoured character swinging a sword into a crowd of clown enemies on a green tiled lane, coins bursting out of one of them.">
+          <p class="era-cap"><b>Stumbling.</b><span>Era 2. The clowns drop coins.</span></p>
+        </figure>
+        <figure>
+          <img src="/assets/shots/eras/dng_OneArmedBandit_f1_v1.webp" width="1920" height="1080"
+               loading="lazy" decoding="async"
+               alt="A small dark violet character facing a golden boss roughly three times its size, sword raised, on a grey stone lane.">
+          <p class="era-cap"><b>One-Armed Bandit.</b><span>Floor 1. That is the boss.</span></p>
+        </figure>
+      </div>
+      
+      <div class="era-foot">
+        <figure>
+          <img src="/assets/shots/eras/device_phone.webp" width="1206" height="1977"
+               loading="lazy" decoding="async"
+               alt="The same game running on a phone: an archer facing an enemy on a green lane in a dark forest, with the equipment slots, the pill bottle and the currency counters below it.">
+          <p class="era-cap"><b>On a phone.</b><span>Build 34, mid-battle.</span></p>
+        </figure>
+        <p class="era-note">Ten eras of gear, and side dungeons named after what they do to you.
+           The two above are rendered in engine from the game&rsquo;s own battle scene &mdash;
+           cropped in, with the health bars and the HUD out of frame. The third is a phone,
+           unretouched, HUD and all.</p>
+      </div>
+    </div>
+
+    <div class="loot">
+      <p class="eyebrow">What you collect</p>
+      <div class="loot-row">
+          <div class="loot-item"><img src="/assets/icons/coins.png" alt="" width="144" height="144" loading="lazy" decoding="async"><span>Coins</span></div>
+          <div class="loot-item"><img src="/assets/icons/gacha-balls.png" alt="" width="144" height="144" loading="lazy" decoding="async"><span>Gacha Balls</span></div>
+          <div class="loot-item"><img src="/assets/icons/gold-nuggets.png" alt="" width="144" height="144" loading="lazy" decoding="async"><span>Gold Nuggets</span></div>
+          <div class="loot-item"><img src="/assets/icons/blue-chips.png" alt="" width="144" height="144" loading="lazy" decoding="async"><span>Blue Chips</span></div>
+          <div class="loot-item"><img src="/assets/icons/dungeon-permits.png" alt="" width="144" height="144" loading="lazy" decoding="async"><span>Dungeon Permits</span></div>
+          <div class="loot-item"><img src="/assets/icons/skill-tissues.png" alt="" width="144" height="144" loading="lazy" decoding="async"><span>Skill Tissues</span></div>
+          <div class="loot-item"><img src="/assets/icons/holy-smokes.png" alt="" width="144" height="144" loading="lazy" decoding="async"><span>Holy Smokes</span></div>
+          <div class="loot-item"><img src="/assets/icons/holy-fans.png" alt="" width="144" height="144" loading="lazy" decoding="async"><span>Holy Fans</span></div>
+          <div class="loot-item"><img src="/assets/icons/research-juice.png" alt="" width="144" height="144" loading="lazy" decoding="async"><span>Research Juice</span></div>
+          <div class="loot-item"><img src="/assets/icons/buff-nubs.png" alt="" width="144" height="144" loading="lazy" decoding="async"><span>Buff Nubs</span></div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section id="receipts">
+    <div class="sec-head">
+      <p class="eyebrow">How we work</p>
+      <h2>The receipts</h2>
+      <p>numbup is built by one person in Vienna working with language models — Claude on most
+         commits, Gemini on some. That claim is easy to make, so here is the evidence, with the
+         command that produced each figure. The repository is private; the script that measures
+         it is not: <a href="https://optionalindustries.com/receipts.py">receipts.py</a>.</p>
+    </div>
+
+    
+    <div class="proof">
+      <div class="proof-head">
+        <div>
+          <p class="eyebrow">Commits, cumulative</p>
+          <h2>The chart documents the pace. numbup is the outcome.</h2>
+        </div>
+        <p class="proof-read"><b>8,026</b>commits · 21 mar – 30 aug 2026</p>
+      </div>
+      <div class="chart-box">
+        <canvas id="growth" role="img"
+          aria-label="Cumulative commits from 21 March 2026 to 30 August 2026, rising from 1 to 8,026, with the curve steepening sharply through August."></canvas>
+      </div>
+      <div class="axis">
+        <span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span>
+      </div>
+      <div class="proof-foot">
+        <span><span class="mark">▲</span> 22 Aug — alpha opens, 278 commits that day</span>
+        <span>15 days with no commit</span>
+        <span>49.5 / day across five months</span>
+      </div>
+    </div>
+
+    
+    <div class="then-now">
+      <p class="eyebrow">The same game</p>
+      <div class="tn-pair">
+        <figure>
+          <img src="/assets/shots/before.webp" width="600" height="885"
+               loading="lazy" decoding="async"
+               alt="An early build of numbup: grey rectangles standing in for the player and the enemies, emoji icons in the equipment slots, and a button labelled Machine.">
+          <p class="tn-cap"><b>Day 2.</b> Desktop debug build, 23&nbsp;March.
+            <span>Boxes for characters. The button still said &ldquo;Machine&rdquo;.</span></p>
+        </figure>
+        <figure>
+          <img src="/assets/shots/after.webp" width="640" height="1280"
+               loading="lazy" decoding="async"
+               alt="numbup today: 3D characters on a green tiled lane in front of a mountain backdrop, an archer facing three enemies with health bars, and below them the equipment slots, the pill bottle and the navigation bar.">
+          <p class="tn-cap"><b>Day 162.</b> Build 34, closed alpha on iOS and Android.
+            <span>Screenshot from an iPhone, mid-battle.</span></p>
+        </figure>
+      </div>
+    </div>
+
+    <div class="figures">
+      <div class="fig">
+        <span class="n">162</span>
+        <span class="what">days from the first commit to the commit this page was built from</span>
+        <span class="src">git log --reverse --format=%ad 0ed4e84ef | head -1</span>
+      </div>
+      <div class="fig">
+        <span class="n">8,026</span>
+        <span class="what">commits</span>
+        <span class="src">git rev-list --count 0ed4e84ef</span>
+      </div>
+      <div class="fig">
+        <span class="n">6,315</span>
+        <span class="what">of 7,538 non-merge commits carry a Claude co-author trailer
+          — and that is still a floor: script-written commits never got one</span>
+        <span class="src">git log --no-merges --format=%H --grep='Co-Authored-By: Claude' 0ed4e84ef | wc -l</span>
+      </div>
+      <div class="fig">
+        <span class="n">524</span>
+        <span class="what">bugs written down — numbered, most of them closed, none of them forgotten</span>
+        <div class="bar" role="img" aria-label="Of 524 logged bugs: 439 closed, 31 partially closed, 54 open.">
+          <i class="done" style="width:83.8%"></i>
+          <i class="part" style="width:5.9%"></i>
+          <i class="open" style="width:10.3%"></i>
+        </div>
+        <div class="legend">
+          <span><i class="k-done"></i> <b>439</b> closed</span>
+          <span><i class="k-part"></i> <b>31</b> partly</span>
+          <span><i class="k-open"></i> <b>54</b> open</span>
+        </div>
+        <span class="src">grep -ho '^### BG-[0-9]*' docs/BACKLOG.md docs/backlog-archive-*.md | sort -u | wc -l</span>
+      </div>
+      <div class="fig">
+        <span class="n">601</span>
+        <span class="what">automated checks, spread over 55 files, that run before a branch reaches
+          main — the merge stops at the first failure</span>
+        <span class="src">grep -h '^def test_' tools/tests/test_*.py | wc -l</span>
+      </div>
+      <div class="fig punch">
+        <span class="n">1</span>
+        <span class="what">person — 8,023 of 8,026 commits carry one author name. Of the three that do not, two were signed by the fleet and one is the initial commit, with the name typed wrong</span>
+        <span class="src">git shortlog -sn 0ed4e84ef</span>
+      </div>
+    </div>
+
+    <p class="note-line key"><strong>Not one line of numbup was typed by hand.</strong> It could not
+       have been: the person directing the fleet had never written C#, and knew about as much SQL
+       as a payroll job teaches. The fleet supplies the syntax. It does not supply the logic, the
+       constraints or the refusals — every line shipped because someone read it, argued with it,
+       or threw it out, and that part was never going to be automated.</p>
+
+    <p class="note-line">The game itself contains no language model:
+       <mark>the company is built with them, the product is not.</mark> And every 3D model, sound and texture in the game was made by a
+       person: bought or licensed, never generated, credited wherever a license asks for it. Assets
+       whose source could not be traced back to a person were replaced rather than kept. The full
+       list of credits ships inside the game, under Settings &rarr; Credits.</p>
+
+    <p class="note-line errata"><strong>This page has now had four wrong numbers.</strong> The first
+       draft counted 37 playbooks where the script that produces every figure finds
+       <b class="num">22</b> &mdash; it had counted a laptop instead of the repository.
+       Three more followed, in the migration count, the alpha&rsquo;s own date and the
+       number of tests, and the sentences around them hid five further mistakes.
+       No script caught any of it.
+       
+       Readers did, twice. That is the job.</p>
+  </section>
+
+  
+  <section id="fleet">
+    <div class="sec-head">
+      <p class="eyebrow">How one person keeps up</p>
+      <h2>Not the headcount. The line.</h2>
+      <p>A studio of one keeps up by turning every repeated judgment into a tool that makes it
+         the same way twice. The fleet runs overnight; the mornings are for deciding.</p>
+    </div>
+
+    <p class="note-line">Bug reports filed inside the game open a thread in a channel within
+       seconds. The chat word filter, the nightly cheat scan and the nightly review all run
+       without anyone starting them.</p>
+
+    <p class="note-line key"><strong>A fleet that types fast is the easy half.</strong> The other half
+       is what it is not allowed to do: <b class="num">601</b> automated checks before a branch merges, a nightly review that
+       reads the diff nobody else read, and every defect that still gets through written down with
+       a number &mdash; <b class="num">524</b> so far, <b class="num">439</b> of
+       them closed. None of that was built for elegance. It was built because the person reading
+       the diffs could not catch a bad one by instinct.
+       <mark>The interesting part was never the typing.</mark></p>
+  </section>
+
+  
+  <section id="work">
+    <div class="sec-head">
+      <p class="eyebrow">Two reasons to write</p>
+      <h2>What you might want from this.</h2>
+      <p>The studio is one person, so the inbox is the front door — there is no form, no funnel
+         and no one else to route it past.</p>
+    </div>
+
+    <div class="doors">
+      <a class="door" href="mailto:hello@optionalindustries.com?subject=numbup%20%E2%80%94%20investment">
+        <span class="who">Investors</span>
+        <h3>A studio with nobody on the payroll.</h3>
+        
+        <p>Five months, one person, no outside capital, a closed alpha on iOS and Android — and none of it
+           full-time. Raising a small pre-seed of €120k. What it buys is time: twelve months
+           without the payroll job, the art and audio a fleet cannot make, and room to run more of
+           the machine at once than one person's evenings pay for.</p>
+        <span class="go">Write about investment <span class="arrow">→</span></span>
+      </a>
+      <a class="door" href="mailto:hello@optionalindustries.com?subject=Press">
+        <span class="who">Press</span>
+        <h3>Every number here carries the command that made it.</h3>
+        <p>The measuring script is public; the repository is not. The method is therefore
+           checkable and the results are, in the end, taken on trust — which is why the four numbers
+           this page got wrong are admitted above instead of quietly corrected. Ask for the ones
+           that are not on the page.</p>
+        <span class="go">Ask for a number <span class="arrow">→</span></span>
+      </a>
+    </div>
+  </section>
+
+  
+  <section id="docs">
+    <div class="sec-head">
+      <p class="eyebrow">For players and app stores</p>
+      <h2>Documents</h2>
+    </div>
+    <div class="docs">
+      <a class="doc" href="https://optionalindustries.com/numbup/privacy.html"><strong>Privacy Policy</strong>
+        <span>What numbup collects, why, and your rights under the GDPR.</span></a>
+      <a class="doc" href="https://optionalindustries.com/numbup/terms.html"><strong>Terms of Service</strong>
+        <span>The terms covering the closed alpha build.</span></a>
+      <a class="doc" href="https://optionalindustries.com/numbup/delete-account.html"><strong>Delete your account</strong>
+        <span>How to remove your account and every piece of data linked to it.</span></a>
+      <a class="doc" href="https://optionalindustries.com/numbup/imprint.html"><strong>Imprint</strong>
+        <span>Who operates this site and numbup, with the address the law requires.</span></a>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="sec-head">
+      <p class="eyebrow">Get in touch</p>
+      <h2>Contact</h2>
+    </div>
+    <p>Questions about the game, your data, or anything else:
+       <a href="mailto:hello@optionalindustries.com">hello@optionalindustries.com</a></p>
+    <p>Offensive content in World Chat: report it to
+       <a href="mailto:report@optionalindustries.com">report@optionalindustries.com</a> —
+       we respond within 24 hours.</p>
+  </section>
+
+  </main>
+
+  <footer class="site">
+    <p>Optional Industries · Vienna, Austria ·
+       <a href="mailto:hello@optionalindustries.com">hello@optionalindustries.com</a></p>
+    
+    <p class="imprint">
+      <a href="https://optionalindustries.com/numbup/imprint.html">Imprint</a> &middot;
+      <a href="https://optionalindustries.com/numbup/licenses.html">Asset licences</a> &middot;
+      <a href="https://optionalindustries.com/numbup/privacy.html">Privacy</a> &middot;
+      <a href="https://optionalindustries.com/numbup/terms.html">Terms</a>
+    </p>
+    <p class="fine">EUTM 019410838 · Figures measured 30 August 2026 from commit 0ed4e84ef.</p>
+  </footer>
+
 </div>
-<h2>Contact</h2>
-<p>Questions about the game, your data, or anything else:
-<a href="mailto:hello@optionalindustries.com">hello@optionalindustries.com</a></p>
-<p>Offensive content in World Chat: report it to
-<a href="mailto:report@optionalindustries.com">report@optionalindustries.com</a> — we respond within 24 hours.</p>
 
-</main>
-<footer>
-  <p>Optional Industries · Vienna, Austria · <a href="mailto:hello@optionalindustries.com">hello@optionalindustries.com</a></p>
-  <p class="fine">numbup is a trade mark application of Nikolaus Petr (EUTM 019410838).</p>
-</footer>
+<script>
+(function () {
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function css(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  }
+
+  
+  function fit(cv) {
+    var r = cv.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    cv.width = Math.max(1, Math.round(r.width * dpr));
+    cv.height = Math.max(1, Math.round(r.height * dpr));
+    var ctx = cv.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { ctx: ctx, w: r.width, h: r.height };
+  }
+
+  
+
+  var SERIES = [1,16,16,34,80,80,80,89,117,153,160,177,200,200,200,200,206,222,239,247,248,253,276,306,388,418,505,557,585,604,632,638,642,649,655,655,655,655,655,655,655,655,655,657,669,705,718,726,745,794,841,864,896,896,947,1026,1046,1085,1122,1178,1263,1305,1351,1367,1411,1412,1420,1470,1483,1501,1504,1543,1655,1733,1815,1979,2027,2047,2086,2134,2154,2165,2214,2226,2234,2261,2266,2274,2288,2302,2318,2336,2355,2379,2390,2402,2435,2481,2524,2589,2658,2693,2746,2826,2912,3002,3082,3168,3258,3321,3363,3400,3465,3557,3601,3616,3647,3691,3741,3760,3803,3874,3957,4016,4022,4079,4118,4119,4136,4164,4218,4270,4362,4438,4481,4592,4675,4750,4807,4915,5072,5236,5288,5316,5339,5438,5569,5711,5802,5825,5894,6019,6131,6291,6569,6802,7071,7258,7404,7519,7751,7843,8026];
+  var MONTHS = [0,11,41,72,102,133];   
+  var ALPHA = 154;                          
+
+  var big = document.getElementById("growth");
+
+  function drawBig(progress) {
+    if (!big) return;
+    var d = fit(big), ctx = d.ctx, w = d.w, h = d.h;
+    var padT = 16, padB = 8;
+    var n = SERIES.length, max = SERIES[n - 1];
+    var x = function (i) { return (i / (n - 1)) * w; };
+    var y = function (v) { return h - padB - (v / max) * (h - padT - padB); };
+
+    ctx.clearRect(0, 0, w, h);
+
+    
+    ctx.strokeStyle = css("--border");
+    ctx.lineWidth = 1;
+    for (var m = 1; m < MONTHS.length; m++) {
+      var mx = Math.round(x(MONTHS[m])) + 0.5;
+      ctx.beginPath(); ctx.moveTo(mx, 0); ctx.lineTo(mx, h - padB); ctx.stroke();
+    }
+    
+    ctx.strokeStyle = css("--hairline");
+    ctx.beginPath(); ctx.moveTo(0, h - padB + 0.5); ctx.lineTo(w, h - padB + 0.5); ctx.stroke();
+
+    var cut = Math.max(2, Math.round(n * progress));
+
+    
+    var grad = ctx.createLinearGradient(0, padT, 0, h - padB);
+    grad.addColorStop(0, "rgba(255,149,0,0.30)");
+    grad.addColorStop(1, "rgba(255,149,0,0.02)");
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.moveTo(0, h - padB);
+    for (var i = 0; i < cut; i++) ctx.lineTo(x(i), y(SERIES[i]));
+    ctx.lineTo(x(cut - 1), h - padB);
+    ctx.closePath();
+    ctx.fill();
+
+    
+    ctx.strokeStyle = css("--amber-dn");
+    ctx.lineWidth = 2;
+    ctx.lineJoin = "round";
+    ctx.lineCap = "round";
+    ctx.beginPath();
+    for (var j = 0; j < cut; j++) {
+      if (j === 0) ctx.moveTo(x(j), y(SERIES[j])); else ctx.lineTo(x(j), y(SERIES[j]));
+    }
+    ctx.stroke();
+
+    
+    if (cut > ALPHA) {
+      var ax = x(ALPHA), ay = y(SERIES[ALPHA]);
+      ctx.strokeStyle = "rgba(181,97,12,0.45)";
+      ctx.setLineDash([3, 3]);
+      ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(ax, h - padB); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = css("--amber");
+      ctx.strokeStyle = css("--panel");
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(ax, ay, 4, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    }
+
+    
+    var ex = x(cut - 1), ey = y(SERIES[cut - 1]);
+    ctx.fillStyle = css("--amber-dn");
+    ctx.strokeStyle = css("--panel");
+    ctx.lineWidth = 2.5;
+    ctx.beginPath(); ctx.arc(ex, ey, 5, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+  }
+
+  function runBig() {
+    if (reduce) { drawBig(1); return; }
+    var start = null, dur = 1400;
+    function step(ts) {
+      if (start === null) start = ts;
+      var t = Math.min(1, (ts - start) / dur);
+      drawBig(1 - Math.pow(1 - t, 3));          
+      if (t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  
+
+  function drawSpark(cv) {
+    var series = (cv.dataset.series || "").split(",").map(Number);
+    if (!series.length) return;
+    var mode = cv.dataset.mode || "line";
+    var d = fit(cv), ctx = d.ctx, w = d.w, h = d.h;
+    var max = Math.max.apply(null, series) || 1;
+    var pad = 3;
+
+    ctx.clearRect(0, 0, w, h);
+
+    if (mode === "bars") {
+      var gap = 3, bw = (w - gap * (series.length - 1)) / series.length;
+      for (var i = 0; i < series.length; i++) {
+        var bh = Math.max(1.5, (series[i] / max) * (h - pad));
+        ctx.fillStyle = (i === series.length - 1) ? css("--amber-dn") : "rgba(30,33,39,0.20)";
+        ctx.fillRect(i * (bw + gap), h - bh, bw, bh);
+      }
+      return;
+    }
+
+    var x = function (i) { return pad + (i / (series.length - 1)) * (w - pad * 2); };
+    var y = function (v) { return h - pad - (v / max) * (h - pad * 2); };
+
+    var grad = ctx.createLinearGradient(0, 0, 0, h);
+    grad.addColorStop(0, "rgba(255,149,0,0.26)");
+    grad.addColorStop(1, "rgba(255,149,0,0.00)");
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.moveTo(x(0), h);
+    for (var k = 0; k < series.length; k++) ctx.lineTo(x(k), y(series[k]));
+    ctx.lineTo(x(series.length - 1), h);
+    ctx.closePath(); ctx.fill();
+
+    ctx.strokeStyle = css("--amber-dn");
+    ctx.lineWidth = 1.6;
+    ctx.lineJoin = "round";
+    ctx.beginPath();
+    for (var m = 0; m < series.length; m++) {
+      if (m === 0) ctx.moveTo(x(m), y(series[m])); else ctx.lineTo(x(m), y(series[m]));
+    }
+    ctx.stroke();
+
+    ctx.fillStyle = css("--amber-dn");
+    ctx.beginPath();
+    ctx.arc(x(series.length - 1), y(series[series.length - 1]), 2.6, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function drawAllSparks() {
+    document.querySelectorAll("canvas.sk").forEach(drawSpark);
+  }
+
+  
+
+  function boot() {
+    drawAllSparks();
+    if (!big) return;
+    if (reduce || !("IntersectionObserver" in window)) { drawBig(1); return; }
+    drawBig(0.02);
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { io.disconnect(); runBig(); }
+      });
+    }, { threshold: 0.25 });
+    io.observe(big);
+  }
+
+  var t = null;
+  window.addEventListener("resize", function () {
+    clearTimeout(t);
+    t = setTimeout(function () { drawBig(1); drawAllSparks(); }, 150);
+  });
+
+  
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(boot);
+  else window.addEventListener("load", boot);
+})();
+</script>
+
+<div id="sparks" aria-hidden="true"></div>
+<script>
+(function () {
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var layer = document.getElementById("sparks");
+  if (!layer) return;
+  var COLORS = ["#FF9500", "#FF3B7B", "#5AC8FA", "#34C759", "#AF7BFF", "#FFD60A"];
+  var WORDS = ["ONE MORE", "just one more", "ok last one", "SUNK COST", "pity soon", "ALMOST", "so close", "trust the pity", "RNG pls", "Roll Again", "Feed It More", "MORE SLOTS", "Junk Again", "Dupe Again", "NOT AGAIN", "Trash Tier", "Nearly Good", "Rounding Error", "Working As Intended", "The Odds Are Fine", "Statistically Fair", "Shiny Math", "Math go Brrr", "Clicky Clicky", "Stonks Only Go Up", "Variable Reward", "Intermittent Reinforcement", "Skinner Box", "Retention +1", "KPI Go Up", "Session Extended", "Watch Time", "Metrics Love You", "This Is The Game", "Pls gib Serotonin", "more dopamine", "Free Dopamine", "Happy Chemicals", "Good Juice", "Idle Juice", "Monkey Brain Happy", "Smooth Brain Time", "Brain go Weeee", "Brain Scratch", "BRAIN LIKES", "NEURON ACTIVATED", "Me Likey"];
+  var recent = [], RING = Math.min(9, Math.max(1, (WORDS.length / 3) | 0));
+  function drawWord() {
+    for (var t = 0; t < 24; t++) {
+      var w = WORDS[(Math.random() * WORDS.length) | 0];
+      if (recent.indexOf(w) === -1) {
+        recent.push(w);
+        if (recent.length > RING) recent.shift();
+        return w;
+      }
+    }
+    return WORDS[(Math.random() * WORDS.length) | 0];
+  }
+  var coarse = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+  document.addEventListener(coarse ? "click" : "pointerdown", function (e) {
+    if (WORDS.length) {
+      var b = document.createElement("b");
+      b.textContent = drawWord();
+      b.style.left = e.clientX + "px";
+      b.style.top = (e.clientY - 14) + "px";
+      b.style.color = COLORS[(Math.random() * COLORS.length) | 0];
+      b.style.setProperty("--tilt", ((Math.random() * 8) - 4).toFixed(1) + "deg");
+      b.addEventListener("animationend", function () { this.remove(); });
+      layer.appendChild(b);
+    }
+    var n = 5 + Math.floor(Math.random() * 4);
+    for (var i = 0; i < n; i++) {
+      var s = document.createElement("i");
+      var a = Math.random() * Math.PI * 2;
+      var d = 34 + Math.random() * 62;
+      s.style.left = e.clientX + "px";
+      s.style.top = e.clientY + "px";
+      s.style.color = COLORS[(Math.random() * COLORS.length) | 0];
+      s.style.setProperty("--dx", (Math.cos(a) * d).toFixed(1) + "px");
+      s.style.setProperty("--dy", (Math.sin(a) * d - 18).toFixed(1) + "px");
+      s.style.setProperty("--rot", ((Math.random() * 300) - 150).toFixed(0) + "deg");
+      s.style.animationDelay = (Math.random() * 70).toFixed(0) + "ms";
+      s.addEventListener("animationend", function () { this.remove(); });
+      layer.appendChild(s);
+    }
+  }, { passive: true });
+})();
+</script>
 </body>
 </html>
