@@ -8,23 +8,28 @@ the page.
 
 Usage:  python3 web/receipts.py                 (readable, for looking things up)
         python3 web/receipts.py --json          (for web/build.py)
-        python3 web/receipts.py --rev d36d285   (against one specific commit)
+        python3 web/receipts.py --rev <commit>  (against one specific commit)
 
 Comments here are English because this file is published — the page links to it, so a
 reader lands in it. The rest of the repository comments in German; this file is the
 deliberate exception.
 
+And because it is published, it is also the ONE file in the repository that carries no
+internal notes: no tool or script names, no paths outside the ones already printed on the
+page, nothing about how the work is organised. What explains a measurement belongs here;
+everything else belongs in a file that stays private.
+
 RULE 1 — everything here must be measurable FROM THE REPOSITORY.
-The first draft counted 37 agent playbooks (from a directory in the developer's home)
-and 6 parallel worktrees. Both describe ONE machine, not the project: on another clone
-those numbers differ, and the page would have claimed "measured at build time" about
-something the build cannot see. Before adding a field, ask: is it in git?
+The first draft carried two figures that described the machine the work happened on
+rather than the project itself. On another clone they differ, and the page would have
+claimed "measured at build time" about something the build cannot see. Before adding a
+field, ask: is it in git?
 
 RULE 2 — everything against ONE commit, never against HEAD and never against the working
-tree. On 2026-08-26 `git rev-list --count HEAD` jumped from 7,285 to 7,288 within minutes
-because a parallel session committed. Two numbers on the same page came from two different
-states. So the commit is resolved ONCE here and every measurement — including every file
-measurement — runs through `git show`/`git ls-tree` against exactly that commit. A dirty
+tree. `git rev-list --count HEAD` once moved by three within minutes while the page was
+being built, because work landed in between. Two numbers on the same page came from two
+different states. So the commit is resolved ONCE here and every measurement — including
+every file measurement — runs through `git show`/`git ls-tree` against exactly that commit. A dirty
 working tree can no longer distort the result.
 
 RULE 3 — the number and its label must mean the same thing.
@@ -51,10 +56,10 @@ ROOT = Path(__file__).resolve().parent.parent
 # not carry "154 days to the alpha" by hand and quietly go stale on the next build.
 ALPHA_DATE = date(2026, 8, 22)
 
-# Backlog sources: the active file AND the archives. On 2026-08-20, 190 closed entries were
-# moved out — counting only docs/BACKLOG.md reports the current stock, not the total. The
-# page says "bugs written down ... none of them forgotten"; archived is not forgotten, so
-# the archives count too.
+# Backlog sources: the active file AND the archives. Closed entries are moved into archives
+# as the active file grows — counting only docs/BACKLOG.md reports the current stock, not the
+# total. The page says "bugs written down ... none of them forgotten"; archived is not
+# forgotten, so the archives count too.
 BACKLOG_GLOBS = ["docs/BACKLOG.md", "docs/backlog-archive-*.md"]
 
 
@@ -116,14 +121,12 @@ def co_author_commits(rev: str) -> int:
 def nonmerge_co_author(rev: str) -> dict:
     """Trailer share WITHOUT merge commits — the denominator the page names.
 
-    Why not simply `co_author_commits / commits`: `git merge --no-ff -m "Merge $BR"` from
-    feature-finish.sh writes no trailer, and a merge is not a typed line either. Leaving
-    merges in the denominator makes 442 commits look like unevidenced handwork that never
-    was any.
+    Why not simply `co_author_commits / commits`: a `git merge --no-ff` writes no trailer,
+    and a merge is not a typed line either. Leaving merges in the denominator makes several
+    hundred commits look like unevidenced handwork that never was any.
 
-    This number stays a LOWER BOUND too: script-written commits (ledger entries, version
-    code bumps) carry no trailer either. Only the trailer is evidence — what happened
-    without one is in no repository.
+    This number stays a LOWER BOUND too: commits written by scripts carry no trailer either.
+    Only the trailer is evidence — what happened without one is in no repository.
     """
     total = int(_git("rev-list", "--count", "--no-merges", rev))
     raw = _git("log", "--no-merges", "--format=%H", "--grep=Co-Authored-By: Claude", rev)
@@ -135,7 +138,12 @@ def nonmerge_co_author(rev: str) -> dict:
 
 
 def authors(rev: str) -> dict:
-    """git shortlog -sn — how many names stand on the commits?"""
+    """git shortlog -sn — how many names stand on the commits?
+
+    Only COUNTS leave this function. An earlier version also returned the names themselves,
+    which no caller ever printed — the page needs to know how many names there are, not who
+    they are, and this file is published.
+    """
     # `-e` appends the e-mail — only that makes the name unambiguously delimitable (it may
     # contain spaces; the address always follows in angle brackets).
     raw = _git("shortlog", "-sn", "-e", rev)
@@ -146,24 +154,16 @@ def authors(rev: str) -> dict:
             counts[m.group(2)] += int(m.group(1))
     if not counts:
         raise MeasurementError("git shortlog returned no authors")
-    top, top_n = counts.most_common(1)[0]
-    return {
-        "top_name": top,
-        "top": top_n,
-        "total": sum(counts.values()),
-        "others": sorted(
-            ({"name": n, "commits": c} for n, c in counts.items() if n != top),
-            key=lambda r: -r["commits"],
-        ),
-    }
+    _top, top_n = counts.most_common(1)[0]
+    return {"top": top_n, "total": sum(counts.values()), "names": len(counts)}
 
 
 def bugs(rev: str) -> dict:
     """Numbered entries from BACKLOG.md + archives, classified the way the repo does it.
 
-    The status convention is BORROWED from tools/backlog_audit.py, not copied — otherwise
-    four tools would hold four definitions of "open". TRIPWIRE counts as open: a tripwire
-    is something still being watched.
+    The status convention is imported rather than copied, so that one definition of "open"
+    holds everywhere instead of each reader inventing its own. A tripwire counts as open: a
+    tripwire is something still being watched.
     """
     sys.path.insert(0, str(ROOT / "tools"))
     try:
@@ -223,26 +223,6 @@ def migrations(rev: str) -> int:
     return len(_paths(rev, "code/supabase/migrations", r"\.sql$"))
 
 
-# REMOVED 2026-08-26: builds_shipped() read a build stamp file for its version code. That
-# file is GITIGNORED — it exists on disk but in no commit. It therefore broke rule 1
-# (measurable from the repository) and rule 2 (against one commit): on a fresh clone the
-# number does not exist and `git show <rev>:...` fails. Exactly the class of mistake the
-# module docstring describes — this time caught by the build instead of by a reader.
-# The number has not been on the page since revision 3.2. Whoever brings it back has to
-# put the build stamp under version control first.
-
-
-def agent_playbooks(rev: str) -> int:
-    """find tools -iname skill.md | wc -l
-
-    ONLY the ones in the repository. What lives in the developer's home directory belongs
-    to the machine, not to the project (rule 1). Reading the commit rather than the working
-    tree also removes an older trap: the filesystem here is case-INSENSITIVE, so globbing
-    for "SKILL.md" and for "skill.md" hit the same file and counted every playbook twice.
-    """
-    return len(_paths(rev, "tools", r"/[Ss][Kk][Ii][Ll][Ll]\.md$"))
-
-
 def curve(days: list[date], start: date, end: date) -> list[int]:
     """Cumulative commits per CALENDAR DAY from start to end, without gaps.
 
@@ -264,13 +244,11 @@ def curve(days: list[date], start: date, end: date) -> list[int]:
 def build_label(rev: str) -> dict:
     """version/code + version/name from code/export_presets.cfg.
 
-    The draft carried this as <span class="tag live">Build 33</span>, typed into the page.
-    The first version of this script read the number from a build stamp file, which is not
-    in git and therefore absent on a fresh clone. export_presets.cfg is versioned and thus
-    evidence.
+    The page once carried this number typed in by hand. The export presets are versioned and
+    therefore evidence; anything read from outside the commit is not.
 
-    Both presets (Android/iOS) must carry the same number; if they drift apart, an export
-    stamped only one ABI and the page would claim a state that never existed.
+    Both presets must carry the same number; if they drift apart, an export stamped only one
+    platform and the page would claim a state that never existed.
     """
     blob = _blob(rev, "code/export_presets.cfg")
     codes = re.findall(r"^version/code=(\d+)", blob, re.M)
@@ -333,7 +311,6 @@ def collect(rev_arg: str = "HEAD") -> dict:
         "bugs": bugs(rev),
         "tests": tests(rev),
         "migrations": migrations(rev),
-        "agent_playbooks": agent_playbooks(rev),
         "build": build_label(rev),
         "people": 1,
         # operations
@@ -382,7 +359,6 @@ def main() -> None:
         (thousands(data["peak_commits"]),      f"commits on the busiest day ({data['peak_date']})"),
         (thousands(data["silent_days"]),       "days with no commit"),
         (thousands(data["migrations"]),        "database migrations"),
-        (thousands(data["agent_playbooks"]),   "agent playbooks"),
     ]
     width = max(len(value) for value, _ in rows)
     for value, label in rows:
