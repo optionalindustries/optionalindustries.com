@@ -1,33 +1,36 @@
 #!/usr/bin/env python3
-"""Misst die Kennzahlen, die optionalindustries.com als Belege ausweist.
+"""Measures the figures optionalindustries.com presents as evidence.
 
-Zweck: Die Studio-Seite behauptet nicht, sie BELEGT — und unter jeder Zahl steht,
-woraus sie stammt. Damit das wahr bleibt, darf keine dieser Zahlen von Hand gepflegt
-werden: Der Build misst sie, und eine Zahl, die sich nicht messen laesst, kommt nicht
-auf die Seite.
+Why: the studio page does not claim, it SHOWS — under every number stands the command
+that produced it. For that to stay true, none of these numbers may be maintained by
+hand: the build measures them, and a number that cannot be measured does not go on
+the page.
 
-Aufruf:  python3 web/receipts.py                 (lesbar, zum Nachschauen)
-         python3 web/receipts.py --json          (fuer web/build.py)
-         python3 web/receipts.py --rev d36d285   (gegen einen bestimmten Commit)
+Usage:  python3 web/receipts.py                 (readable, for looking things up)
+        python3 web/receipts.py --json          (for web/build.py)
+        python3 web/receipts.py --rev d36d285   (against one specific commit)
 
-🔒 REGEL 1 — alles hier muss AUS DEM REPO messbar sein.
-Der erste Entwurf zaehlte 37 Agent-Playbooks (`~/.claude/skills`) und 6 parallele
-Arbeitsbaeume (`git worktree list`). Beides beschreibt EINEN Rechner, nicht das
-Projekt: auf einem anderen Klon stehen dort andere Zahlen, und die Seite haette
-"beim Build gemessen" ueber etwas behauptet, das der Build gar nicht sieht.
-Wer hier ein Feld ergaenzt, prueft zuerst: steht das in git?
+Comments here are English because this file is published — the page links to it, so a
+reader lands in it. The rest of the repository comments in German; this file is the
+deliberate exception.
 
-🔒 REGEL 2 — alles gegen EINEN Commit, nie gegen HEAD und nie gegen den Working Tree.
-Am 2026-08-26 sprang `git rev-list --count HEAD` binnen Minuten von 7.285 auf 7.288,
-weil eine parallele Session committete. Zwei Zahlen derselben Seite stammten damit aus
-zwei verschiedenen Zustaenden. Deshalb wird der Commit hier EINMAL aufgeloest und jede
-Messung — auch jede Datei-Messung — laeuft ueber `git show`/`git ls-tree` gegen genau
-diesen Commit. Ein dreckiger Arbeitsbaum kann das Ergebnis nicht mehr verfaelschen.
+RULE 1 — everything here must be measurable FROM THE REPOSITORY.
+The first draft counted 37 agent playbooks (from a directory in the developer's home)
+and 6 parallel worktrees. Both describe ONE machine, not the project: on another clone
+those numbers differ, and the page would have claimed "measured at build time" about
+something the build cannot see. Before adding a field, ask: is it in git?
 
-🔒 REGEL 3 — Zahl und Beschriftung muessen dasselbe meinen.
-Die Seite schrieb "38 gate tests" unter einen Befehl, der DATEIEN zaehlte; in den
-38 Dateien stehen 367 Tests. Deshalb liefert dieses Skript beide Zahlen getrennt,
-und die Seite beschriftet, was sie zeigt.
+RULE 2 — everything against ONE commit, never against HEAD and never against the working
+tree. On 2026-08-26 `git rev-list --count HEAD` jumped from 7,285 to 7,288 within minutes
+because a parallel session committed. Two numbers on the same page came from two different
+states. So the commit is resolved ONCE here and every measurement — including every file
+measurement — runs through `git show`/`git ls-tree` against exactly that commit. A dirty
+working tree can no longer distort the result.
+
+RULE 3 — the number and its label must mean the same thing.
+The page once printed "38 gate tests" under a command that counted FILES; those 38 files
+hold 367 tests. This script therefore returns both numbers separately, and the page labels
+what it shows.
 """
 
 from __future__ import annotations
@@ -43,28 +46,28 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
-# Der Tag, an dem die geschlossene Alpha auf iOS und Android aufmachte. KEIN Messwert —
-# ein Ereignis, das nicht im Repo steht. Steht hier als einzige Konstante, damit die Seite
-# "154 Tage bis zur Alpha" nicht von Hand fuehrt und beim naechsten Build still veraltet.
+# The day the closed alpha opened on iOS and Android. NOT a measurement — an event that is
+# not recorded in the repository. It sits here as the single constant so that the page does
+# not carry "154 days to the alpha" by hand and quietly go stale on the next build.
 ALPHA_DATE = date(2026, 8, 22)
 
-# Backlog-Quellen: die aktive Datei UND die Archive. Am 2026-08-20 wurden 190 erledigte
-# Eintraege ausgelagert — wer nur docs/BACKLOG.md zaehlt, meldet den Bestand, nicht die
-# Summe. Die Seite sagt "bugs written down ... none of them forgotten"; ausgelagert ist
-# nicht vergessen, also zaehlen die Archive mit.
+# Backlog sources: the active file AND the archives. On 2026-08-20, 190 closed entries were
+# moved out — counting only docs/BACKLOG.md reports the current stock, not the total. The
+# page says "bugs written down ... none of them forgotten"; archived is not forgotten, so
+# the archives count too.
 BACKLOG_GLOBS = ["docs/BACKLOG.md", "docs/backlog-archive-*.md"]
 
 
 class MeasurementError(RuntimeError):
-    """Eine Messung ist fehlgeschlagen.
+    """A measurement failed.
 
-    Bewusst hart: Ein Fallback-Wert waere eine unbelegte Zahl auf einer Seite,
-    deren einziger Punkt die Belegbarkeit ist. Lieber bricht der Build ab.
+    Deliberately hard: a fallback value would be an unevidenced number on a page whose
+    only point is that its numbers are evidenced. Better to break the build.
     """
 
 
 def _git(*args: str) -> str:
-    """Git im Repo-Root ausfuehren und stdout zurueckgeben."""
+    """Run git in the repository root and return stdout."""
     result = subprocess.run(
         ["git", "-C", str(ROOT), *args],
         capture_output=True, text=True, check=False,
@@ -75,67 +78,66 @@ def _git(*args: str) -> str:
 
 
 def _blob(rev: str, path: str) -> str:
-    """Dateiinhalt AUS DEM COMMIT lesen (nicht aus dem Arbeitsbaum) — Regel 2."""
+    """Read file contents FROM THE COMMIT, not from the working tree — rule 2."""
     return _git("show", f"{rev}:{path}")
 
 
 def _paths(rev: str, prefix: str, pattern: str) -> list[str]:
-    """Dateien im Commit auflisten, die auf `pattern` passen — Regel 2."""
+    """List files in the commit that match `pattern` — rule 2."""
     names = _git("ls-tree", "-r", "--name-only", rev, prefix).splitlines()
     rx = re.compile(pattern)
     return sorted(n for n in names if rx.search(n))
 
 
-# ------------------------------------------------------------------ Messungen
-# Jede Funktion traegt den Befehl, der auf der Seite unter der Zahl steht.
-# Aendert sich hier die Messung, aendert sich dort die Fussnote — beides zusammen.
+# ------------------------------------------------------------------ measurements
+# Every function carries the command that stands under its number on the page.
+# Change the measurement here and the footnote there changes with it — both together.
 
 def commit_days(rev: str) -> list[date]:
-    """git log --format=%ad --date=short — ein Datum je Commit, aeltestes zuerst."""
+    """git log --format=%ad --date=short — one date per commit, oldest first."""
     raw = _git("log", "--format=%ad", "--date=short", rev)
     days = [date.fromisoformat(line) for line in raw.splitlines() if line]
     if not days:
-        raise MeasurementError("keine Commits gefunden")
+        raise MeasurementError("no commits found")
     return sorted(days)
 
 
 def co_author_commits(rev: str) -> int:
     """git log --format=%b | grep -c 'Co-Authored-By: Claude'
 
-    Gezaehlt werden COMMITS, nicht Zeilen: `git log --grep` filtert auf Commit-Ebene.
-    Am 2026-08-26 nachgemessen — beide Wege liefern dieselbe Zahl, weil kein Commit
-    zwei Claude-Trailer traegt. Der Commit-Weg bleibt trotzdem der richtige, weil er
-    auch dann stimmt, wenn doch einmal zwei drinstehen.
+    COMMITS are counted, not lines: `git log --grep` filters at commit level. Measured
+    both ways on 2026-08-26 — they agree, because no commit carries two Claude trailers.
+    The commit-level path stays the right one anyway: it also holds if one ever does.
     """
     raw = _git("log", "--format=%H", "--grep=Co-Authored-By: Claude", rev)
     return len({line for line in raw.splitlines() if line})
 
 
 def nonmerge_co_author(rev: str) -> dict:
-    """Trailer-Quote OHNE Merge-Commits — der Nenner, den die Seite nennt.
+    """Trailer share WITHOUT merge commits — the denominator the page names.
 
-    Warum nicht einfach `co_author_commits / commits`: `git merge --no-ff -m "Merge $BR"`
-    aus feature-finish.sh schreibt den Trailer nicht, und ein Merge ist auch keine
-    getippte Zeile. Er im Nenner zu lassen, laesst 442 Commits wie unbelegte Handarbeit
-    aussehen, die gar keine war.
+    Why not simply `co_author_commits / commits`: `git merge --no-ff -m "Merge $BR"` from
+    feature-finish.sh writes no trailer, and a merge is not a typed line either. Leaving
+    merges in the denominator makes 442 commits look like unevidenced handwork that never
+    was any.
 
-    Auch diese Zahl bleibt eine UNTERGRENZE: skript-geschriebene Commits
-    (Ledger-Buchungen, versionCode-Bumps) tragen den Trailer ebenfalls nicht.
-    Belegbar ist allein der Trailer — was ohne ihn passierte, steht in keinem Repo.
+    This number stays a LOWER BOUND too: script-written commits (ledger entries, version
+    code bumps) carry no trailer either. Only the trailer is evidence — what happened
+    without one is in no repository.
     """
     total = int(_git("rev-list", "--count", "--no-merges", rev))
     raw = _git("log", "--no-merges", "--format=%H", "--grep=Co-Authored-By: Claude", rev)
     with_trailer = len({line for line in raw.splitlines() if line})
     if with_trailer > total:
-        raise MeasurementError(f"mehr Trailer ({with_trailer}) als Non-Merge-Commits ({total})")
+        raise MeasurementError(f"more trailers ({with_trailer}) than non-merge commits ({total})")
     return {"total": total, "with_trailer": with_trailer,
             "merges": int(_git("rev-list", "--count", "--merges", rev))}
 
 
 def authors(rev: str) -> dict:
-    """git shortlog -sn — wie viele Namen stehen an den Commits?"""
-    # `-e` haengt die Mail an — erst dadurch ist der Name eindeutig abgrenzbar (er kann
-    # Leerzeichen enthalten, die Mail steht immer in spitzen Klammern dahinter).
+    """git shortlog -sn — how many names stand on the commits?"""
+    # `-e` appends the e-mail — only that makes the name unambiguously delimitable (it may
+    # contain spaces; the address always follows in angle brackets).
     raw = _git("shortlog", "-sn", "-e", rev)
     counts: Counter = Counter()
     for line in raw.splitlines():
@@ -143,7 +145,7 @@ def authors(rev: str) -> dict:
         if m:
             counts[m.group(2)] += int(m.group(1))
     if not counts:
-        raise MeasurementError("git shortlog lieferte keine Autoren")
+        raise MeasurementError("git shortlog returned no authors")
     top, top_n = counts.most_common(1)[0]
     return {
         "top_name": top,
@@ -157,31 +159,31 @@ def authors(rev: str) -> dict:
 
 
 def bugs(rev: str) -> dict:
-    """Nummerierte Eintraege aus BACKLOG.md + Archiven, klassifiziert wie im Repo.
+    """Numbered entries from BACKLOG.md + archives, classified the way the repo does it.
 
-    Die Status-Konvention wird von tools/backlog_audit.py GELIEHEN, nicht kopiert —
-    sonst haetten vier Werkzeuge vier Definitionen von "offen". TRIPWIRE zaehlt als
-    offen: ein Tripwire ist etwas, das noch beobachtet wird.
+    The status convention is BORROWED from tools/backlog_audit.py, not copied — otherwise
+    four tools would hold four definitions of "open". TRIPWIRE counts as open: a tripwire
+    is something still being watched.
     """
     sys.path.insert(0, str(ROOT / "tools"))
     try:
         import backlog_audit
     except Exception as exc:  # pragma: no cover
-        raise MeasurementError(f"backlog_audit nicht importierbar: {exc}") from exc
+        raise MeasurementError(f"backlog_audit not importable: {exc}") from exc
 
     files: list[str] = []
     for pattern in BACKLOG_GLOBS:
         prefix, _, tail = pattern.rpartition("/")
         files += _paths(rev, prefix or ".", "^" + re.escape(prefix + "/") + tail.replace("*", "[^/]*") + "$")
     if not files:
-        raise MeasurementError(f"keine Backlog-Datei im Commit: {BACKLOG_GLOBS}")
+        raise MeasurementError(f"no backlog file in the commit: {BACKLOG_GLOBS}")
 
     states: Counter = Counter()
     seen: set[str] = set()
     for path in files:
         entries, order, _dupes, _wrong = backlog_audit.parse_entries(_blob(rev, path))
         for key in order:
-            if key in seen:          # dieselbe BG-Nummer in aktiv UND Archiv: einmal zaehlen
+            if key in seen:          # same entry number in active AND archive: count it once
                 continue
             seen.add(key)
             state, _has_field = backlog_audit.classify(entries[key])
@@ -189,7 +191,7 @@ def bugs(rev: str) -> dict:
 
     total = sum(states.values())
     if total <= 0:
-        raise MeasurementError("Backlog enthaelt keine nummerierten Eintraege")
+        raise MeasurementError("backlog holds no numbered entries")
     return {
         "total": total,
         "closed": states.get("DONE", 0),
@@ -200,19 +202,19 @@ def bugs(rev: str) -> dict:
 
 
 def tests(rev: str) -> dict:
-    """ls tools/tests/test_*.py | wc -l  UND  grep -h '^def test_' ... | wc -l
+    """ls tools/tests/test_*.py | wc -l  AND  grep -h '^def test_' ... | wc -l
 
-    Zwei Zahlen, weil sie zwei verschiedene Dinge sind (Regel 3): die Dateien sind
-    die Module im Merge-Gate, die Funktionen sind die Pruefungen darin.
+    Two numbers, because they are two different things (rule 3): the files are the modules
+    in the merge gate, the functions are the checks inside them.
     """
     files = _paths(rev, "tools/tests", r"/test_[^/]*\.py$")
     if not files:
-        raise MeasurementError("keine Testmodule im Commit gefunden")
+        raise MeasurementError("no test modules found in the commit")
     n_funcs = 0
     for path in files:
         n_funcs += len(re.findall(r"^[ \t]*def test_", _blob(rev, path), re.MULTILINE))
     if n_funcs <= 0:
-        raise MeasurementError("Testmodule ohne eine einzige Testfunktion")
+        raise MeasurementError("test modules without a single test function")
     return {"files": len(files), "functions": n_funcs}
 
 
@@ -221,32 +223,32 @@ def migrations(rev: str) -> int:
     return len(_paths(rev, "code/supabase/migrations", r"\.sql$"))
 
 
-# ENTFERNT 2026-08-26: builds_shipped() las code/configs/build_stamp.json -> version_code.
-# Die Datei ist GITIGNORED — sie liegt im Dateisystem, aber in keinem Commit. Damit verletzt
-# sie Regel 1 (aus dem Repo messbar) und Regel 2 (gegen einen Commit): auf einem frischen Klon
-# gibt es die Zahl nicht, und `git show <rev>:...` bricht ab. Genau die Klasse Fehler, die der
-# Modul-Docstring beschreibt — nur diesmal vom Build gefangen statt von einem Leser.
-# Die Zahl steht seit Rev 3.2 ohnehin nicht mehr auf der Seite. Wer sie zurueckholt, muss den
-# Build-Stempel zuerst versionieren.
+# REMOVED 2026-08-26: builds_shipped() read a build stamp file for its version code. That
+# file is GITIGNORED — it exists on disk but in no commit. It therefore broke rule 1
+# (measurable from the repository) and rule 2 (against one commit): on a fresh clone the
+# number does not exist and `git show <rev>:...` fails. Exactly the class of mistake the
+# module docstring describes — this time caught by the build instead of by a reader.
+# The number has not been on the page since revision 3.2. Whoever brings it back has to
+# put the build stamp under version control first.
 
 
 def agent_playbooks(rev: str) -> int:
     """find tools -iname skill.md | wc -l
 
-    NUR die im Repo. Was in ~/.claude/skills liegt, gehoert dem Rechner, nicht dem
-    Projekt (Regel 1). Ueber den Commit statt ueber den Arbeitsbaum — damit entfaellt
-    auch die alte APFS-Falle: das Dateisystem ist case-INSENSITIV, `rglob("SKILL.md")`
-    und `rglob("skill.md")` trafen dieselbe Datei und zaehlten jedes Playbook doppelt.
+    ONLY the ones in the repository. What lives in the developer's home directory belongs
+    to the machine, not to the project (rule 1). Reading the commit rather than the working
+    tree also removes an older trap: the filesystem here is case-INSENSITIVE, so globbing
+    for "SKILL.md" and for "skill.md" hit the same file and counted every playbook twice.
     """
     return len(_paths(rev, "tools", r"/[Ss][Kk][Ii][Ll][Ll]\.md$"))
 
 
 def curve(days: list[date], start: date, end: date) -> list[int]:
-    """Kumulierte Commits je KALENDERTAG von start bis end, luecklos.
+    """Cumulative commits per CALENDAR DAY from start to end, without gaps.
 
-    Pflicht fuer die Seite: der Graph muss aus derselben Messung stammen wie die
-    Kacheln. Wird er von Hand gepflegt, altert er — und ein alter Graph ist auf einer
-    Beleg-Seite schlimmer als gar keiner.
+    Required for the page: the graph has to come from the same measurement as the tiles.
+    Maintained by hand it ages — and an outdated graph is worse on an evidence page than
+    no graph at all.
     """
     per_day = Counter(days)
     series, running, cursor = [], 0, start
@@ -257,36 +259,35 @@ def curve(days: list[date], start: date, end: date) -> list[int]:
     return series
 
 
-# ------------------------------------------------------------------ Aggregat
+# ------------------------------------------------------------------ aggregate
 
 def build_label(rev: str) -> dict:
-    """version/code + version/name aus code/export_presets.cfg.
+    """version/code + version/name from code/export_presets.cfg.
 
-    Stand im Entwurf als <span class="tag live">Build 33</span> von Hand in der Seite.
-    Die erste Fassung dieses Skripts las die Nummer aus code/configs/build_stamp.json --
-    die Datei ist aber nicht in git, also auf einem frischen Klon nicht vorhanden.
-    export_presets.cfg ist versioniert und damit ein Beleg.
+    The draft carried this as <span class="tag live">Build 33</span>, typed into the page.
+    The first version of this script read the number from a build stamp file, which is not
+    in git and therefore absent on a fresh clone. export_presets.cfg is versioned and thus
+    evidence.
 
-    Beide Presets (Android/iOS) muessen dieselbe Nummer tragen; laufen sie
-    auseinander, hat ein Export nur eine ABI gestempelt und die Seite wuerde
-    einen Stand behaupten, den es so nie gab.
+    Both presets (Android/iOS) must carry the same number; if they drift apart, an export
+    stamped only one ABI and the page would claim a state that never existed.
     """
     blob = _blob(rev, "code/export_presets.cfg")
     codes = re.findall(r"^version/code=(\d+)", blob, re.M)
     names = re.findall(r'^version/name="([^"]+)"', blob, re.M)
     if not codes or not names:
-        raise MeasurementError("export_presets.cfg traegt keine version/code + version/name")
+        raise MeasurementError("export_presets.cfg carries no version/code + version/name")
     if len(set(codes)) != 1:
-        raise MeasurementError(f"version/code laeuft zwischen den Presets auseinander: {codes}")
+        raise MeasurementError(f"version/code drifts between presets: {codes}")
     if len(set(names)) != 1:
-        raise MeasurementError(f"version/name laeuft zwischen den Presets auseinander: {names}")
+        raise MeasurementError(f"version/name drifts between presets: {names}")
     return {"code": int(codes[0]), "name": names[0], "presets": len(codes)}
 
 
 def month_starts(start: date, end: date) -> list[int]:
-    """Kurven-Indizes der Monatsersten. Stand im Entwurf als [0,11,41,72,102,133] im
-    Skript — eine Liste, die beim ersten Monatswechsel nach dem Build still falsch wird.
-    Index 0 ist der erste Commit-Tag selbst, damit die Achse links eine Marke hat.
+    """Curve indices of the first of each month. The draft carried [0,11,41,72,102,133] as a
+    literal list in the script — one that goes quietly wrong at the first month boundary
+    after the build. Index 0 is the first commit day itself, so the axis has a left mark.
     """
     out = [0]
     y, m = start.year, start.month
@@ -302,15 +303,15 @@ def month_starts(start: date, end: date) -> list[int]:
 
 
 def collect(rev_arg: str = "HEAD") -> dict:
-    """Alle Kennzahlen gegen EINEN Commit messen. Wirft bei jeder fehlgeschlagenen Messung."""
-    rev = _git("rev-parse", rev_arg)          # Regel 2: einmal aufloesen, dann festhalten
+    """Measure every figure against ONE commit. Raises on any failed measurement."""
+    rev = _git("rev-parse", rev_arg)          # rule 2: resolve once, then hold on to it
     short = _git("rev-parse", "--short", rev)
 
     days_list = commit_days(rev)
     start, head_day = days_list[0], days_list[-1]
     span = (head_day - start).days
     if span <= 0:
-        raise MeasurementError(f"unplausible Laufzeit: {start} .. {head_day}")
+        raise MeasurementError(f"implausible span: {start} .. {head_day}")
 
     n_commits = len(days_list)
     series = curve(days_list, start, head_day)
@@ -318,13 +319,13 @@ def collect(rev_arg: str = "HEAD") -> dict:
     peak_i = max(range(len(deltas)), key=lambda i: deltas[i]) if deltas else 0
 
     return {
-        # Zeit
+        # time
         "days": span,
         "alpha_days": (ALPHA_DATE - start).days,
         "alpha_date": ALPHA_DATE.isoformat(),
         "alpha_day_commits": sum(1 for d in days_list if d == ALPHA_DATE),
         "first_commit": start.isoformat(),
-        # Belege
+        # evidence
         "commits": n_commits,
         "co_author_commits": co_author_commits(rev),
         "nonmerge": nonmerge_co_author(rev),
@@ -335,7 +336,7 @@ def collect(rev_arg: str = "HEAD") -> dict:
         "agent_playbooks": agent_playbooks(rev),
         "build": build_label(rev),
         "people": 1,
-        # Betrieb
+        # operations
         "commits_per_day": round(n_commits / span, 1),
         "peak_commits": max(deltas) if deltas else 0,
         "peak_date": (start + timedelta(days=peak_i + 1)).isoformat(),
@@ -343,21 +344,21 @@ def collect(rev_arg: str = "HEAD") -> dict:
         "curve": series,
         "month_starts": month_starts(start, head_day),
         "months_span": len(month_starts(start, head_day)) - 1,
-        # Herkunft
+        # provenance
         "source_sha": short,
         "measured_on": head_day.isoformat(),
     }
 
 
 def thousands(n: int) -> str:
-    """7274 -> '7,274'. Die Seite ist englisch, also Komma."""
+    """7274 -> '7,274'. The page is English, so a comma."""
     return f"{n:,}"
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--json", action="store_true", help="maschinenlesbar fuer web/build.py")
-    parser.add_argument("--rev", default="HEAD", help="Commit, gegen den gemessen wird")
+    parser.add_argument("--json", action="store_true", help="machine-readable, for web/build.py")
+    parser.add_argument("--rev", default="HEAD", help="commit to measure against")
     args = parser.parse_args()
 
     data = collect(args.rev)
@@ -386,8 +387,8 @@ def main() -> None:
     width = max(len(value) for value, _ in rows)
     for value, label in rows:
         print(f"  {value:>{width}}  {label}" if value else "")
-    print(f"\n  {len(data['curve'])} Kalendertage in der Kurve")
-    print(f"  gemessen an {data['source_sha']} ({data['measured_on']})")
+    print(f"\n  {len(data['curve'])} calendar days in the curve")
+    print(f"  measured at {data['source_sha']} ({data['measured_on']})")
 
 
 if __name__ == "__main__":
