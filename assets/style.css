@@ -1,6 +1,3 @@
-/* Legal-Site optionalindustries.com — bewusst systemfont-basiert:
-   Store-Reviewer oeffnen das oft in schlechten Netzen, externe Fonts waeren
-   ein Ladehaken ohne Gegenwert. */
 :root {
   color-scheme: light dark;
   --paper:#FBFAF7; --surface:#FFFFFF; --ink:#1A1D1B; --ink-soft:#4C534E;
