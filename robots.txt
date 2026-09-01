@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+Sitemap: https://optionalindustries.com/sitemap.xml

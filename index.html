@@ -3,20 +3,52 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Optional Industries</title>
-<meta name="description" content="An independent game studio in Vienna. One person, a fleet of language models, 8,060 commits in 154 days to a closed alpha on iOS and Android.">
+
+<title>Optional Industries — indie game studio in Vienna | numbup</title>
+<meta name="description" content="An independent game studio in Vienna. One person, a fleet of language models, 8,218 commits in 154 days to a closed alpha on iOS and Android.">
 <meta name="color-scheme" content="light">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
-<meta name="build-source" content="854ae5900">
+<meta name="build-source" content="fd022998e">
 <link rel="canonical" href="https://optionalindustries.com/">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://optionalindustries.com/#studio",
+      "name": "Optional Industries",
+      "url": "https://optionalindustries.com/",
+      "logo": "https://optionalindustries.com/favicon.svg",
+      "description": "An independent game studio in Vienna, Austria.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Vienna",
+        "addressCountry": "AT"
+      }
+    },
+    {
+      "@type": "VideoGame",
+      "name": "numbup",
+      "url": "https://numbup.app",
+      "image": "https://optionalindustries.com/assets/og/og-card.jpg",
+      "applicationCategory": "GameApplication",
+      "gamePlatform": ["iOS", "Android"],
+      "genre": ["Idle", "Gacha", "Auto-battler"],
+      "publisher": { "@id": "https://optionalindustries.com/#studio" }
+    }
+  ]
+}
+</script>
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Optional Industries">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://optionalindustries.com/">
 <meta property="og:title" content="One person. A fleet of language models. 154 days to a live alpha.">
-<meta property="og:description" content="An independent game studio in Vienna. One person, a fleet of language models, 8,060 commits in 154 days to a closed alpha. Every figure on the page carries the command that measured it.">
+<meta property="og:description" content="An independent game studio in Vienna. One person, a fleet of language models, 8,218 commits in 154 days to a closed alpha. Every figure on the page carries the command that measured it.">
 <meta property="og:image" content="https://optionalindustries.com/assets/og/og-card.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
@@ -24,7 +56,7 @@
 <meta property="og:image:alt" content="A silver-armoured character swinging a sword into a crowd of clown enemies on a green tiled lane.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="One person. A fleet of language models. 154 days to a live alpha.">
-<meta name="twitter:description" content="An independent game studio in Vienna. 8,060 commits in 154 days to a closed alpha — every figure on the page carries the command that measured it.">
+<meta name="twitter:description" content="An independent game studio in Vienna. 8,218 commits in 154 days to a closed alpha — every figure on the page carries the command that measured it.">
 <meta name="twitter:image" content="https://optionalindustries.com/assets/og/og-card.jpg">
 <meta name="twitter:image:alt" content="A silver-armoured character swinging a sword into a crowd of clown enemies on a green tiled lane.">
 
@@ -292,6 +324,8 @@ a { color: inherit; }
   letter-spacing: 0.04em;
 }
 .top nav a {
+  
+  white-space: nowrap;
   text-decoration: none;
   color: var(--ink-mute);
   border-bottom: 2px solid transparent;
@@ -353,7 +387,7 @@ a { color: inherit; }
 }
 .proof-read {
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   letter-spacing: 0.05em;
   color: var(--ink-soft);
   text-align: right;
@@ -380,7 +414,7 @@ a { color: inherit; }
   justify-content: space-between;
   padding: 0.15rem clamp(1.1rem, 3vw, 1.7rem) 0;
   font-family: var(--mono);
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   color: var(--ink-faint);
   text-transform: uppercase;
@@ -393,7 +427,7 @@ a { color: inherit; }
   flex-wrap: wrap;
   gap: 0.35rem 1.6rem;
   font-family: var(--mono);
-  font-size: 0.66rem;
+  font-size: 0.75rem;
   color: var(--ink-soft);
   letter-spacing: 0.03em;
 }
@@ -542,7 +576,7 @@ section { margin-bottom: var(--gap-sec); }
 .loot-item img { display: block; width: 44px; height: 44px; }
 .loot-item span {
   font-family: var(--mono);
-  font-size: 0.58rem;
+  font-size: 0.7rem;
   letter-spacing: 0.05em;
   line-height: 1.35;
   text-align: center;
@@ -574,7 +608,7 @@ section { margin-bottom: var(--gap-sec); }
   gap: 0.35rem 1.4rem;
   margin-top: 0.65rem;
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   color: var(--ink-mute);
 }
 .legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
@@ -619,7 +653,7 @@ section { margin-bottom: var(--gap-sec); }
 .src {
   margin-top: auto;
   font-family: var(--code);
-  font-size: 0.66rem;
+  font-size: 0.75rem;
   line-height: 1.5;
   color: var(--ink-mute);
   background-color: var(--card);
@@ -633,7 +667,7 @@ section { margin-bottom: var(--gap-sec); }
 .fig .what, .fig .legend { margin-bottom: 0.55rem; }
 
 .fig .bar { margin-top: 0.75rem; height: 10px; }
-.fig .legend { margin-top: 0.5rem; font-size: 0.63rem; gap: 0.25rem 0.85rem; }
+.fig .legend { margin-top: 0.5rem; font-size: 0.75rem; gap: 0.25rem 0.85rem; }
 
 .fig.punch { background: rgba(30, 33, 39, 0.045); }
 
@@ -659,7 +693,7 @@ section { margin-bottom: var(--gap-sec); }
 .tn-cap {
   margin-top: 0.65rem;
   font-family: var(--code);
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   line-height: 1.55;
   color: var(--ink-soft);
 }
@@ -697,7 +731,7 @@ section { margin-bottom: var(--gap-sec); }
 .era-cap {
   margin-top: 0.55rem;
   font-family: var(--code);
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   line-height: 1.5;
   color: var(--dark-soft);
 }
@@ -820,7 +854,7 @@ mark {
 .door:hover { border-color: var(--amber); box-shadow: var(--frost-edge), var(--frost-raise-amber); transform: translateY(-2px); }
 .door .who {
   font-family: var(--mono);
-  font-size: 0.66rem;
+  font-size: 0.75rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--amber-dn);
@@ -833,7 +867,7 @@ mark {
   padding-top: 0.85rem;
   border-top: 1px dashed var(--border);
   font-family: var(--mono);
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   color: var(--ink);
   display: flex;
   align-items: center;
@@ -900,7 +934,7 @@ footer.site .imprint a:hover { color: var(--amber-dn); }
 footer.site .imprint-label {
   display: block;
   font-family: var(--mono);
-  font-size: 0.62rem;
+  font-size: 0.72rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--ink-faint);
@@ -960,7 +994,8 @@ footer.site .imprint-label {
         </div>
         <div class="cta-row">
           <a class="cta" href="https://numbup.app">Open numbup.app <span class="arrow">→</span></a>
-          <a class="cta-alt" href="https://discord.gg/6MsjYg2p4X">Join the alpha on Discord</a>
+          
+<a class="cta-alt" target="_blank" rel="noopener" href="https://discord.gg/6MsjYg2p4X">Join the alpha on Discord</a>
         </div>
       </div>
 
@@ -1046,11 +1081,11 @@ footer.site .imprint-label {
           <p class="eyebrow">Commits, cumulative</p>
           <h2>The chart documents the pace. numbup is the outcome.</h2>
         </div>
-        <p class="proof-read"><b>8,060</b>commits · 21 mar – 31 aug 2026</p>
+        <p class="proof-read"><b>8,218</b>commits · 21 mar – 1 sep 2026</p>
       </div>
       <div class="chart-box">
         <canvas id="growth" role="img"
-          aria-label="Cumulative commits from 21 March 2026 to 31 August 2026, rising from 1 to 8,060, with the curve steepening sharply through August."></canvas>
+          aria-label="Cumulative commits from 21 March 2026 to 1 September 2026, rising from 1 to 8,218, with the curve steepening sharply through August."></canvas>
       </div>
       <div class="axis">
         <span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span>
@@ -1058,7 +1093,7 @@ footer.site .imprint-label {
       <div class="proof-foot">
         <span><span class="mark">▲</span> 22 Aug — alpha opens, 278 commits that day</span>
         <span>15 days with no commit</span>
-        <span>49.4 / day across five months</span>
+        <span>50.1 / day across six months</span>
       </div>
     </div>
 
@@ -1077,7 +1112,7 @@ footer.site .imprint-label {
           <img src="/assets/shots/after.webp" width="640" height="1280"
                loading="lazy" decoding="async"
                alt="numbup today: 3D characters on a green tiled lane in front of a mountain backdrop, an archer facing three enemies with health bars, and below them the equipment slots, the pill bottle and the navigation bar.">
-          <p class="tn-cap"><b>Day 163.</b> Build 34, closed alpha on iOS and Android.
+          <p class="tn-cap"><b>Day 164.</b> Build 34, closed alpha on iOS and Android.
             <span>Screenshot from an iPhone, mid-battle.</span></p>
         </figure>
       </div>
@@ -1085,46 +1120,46 @@ footer.site .imprint-label {
 
     <div class="figures">
       <div class="fig">
-        <span class="n">163</span>
+        <span class="n">164</span>
         <span class="what">days from the first commit to the commit this page was built from</span>
-        <span class="src">git log --reverse --format=%ad 854ae5900 | head -1</span>
+        <span class="src">git log --reverse --format=%ad fd022998e | head -1</span>
       </div>
       <div class="fig">
-        <span class="n">8,060</span>
+        <span class="n">8,218</span>
         <span class="what">commits</span>
-        <span class="src">git rev-list --count 854ae5900</span>
+        <span class="src">git rev-list --count fd022998e</span>
       </div>
       <div class="fig">
-        <span class="n">6,349</span>
-        <span class="what">of 7,572 non-merge commits carry a Claude co-author trailer
+        <span class="n">6,456</span>
+        <span class="what">of 7,718 non-merge commits carry a Claude co-author trailer
           — and that is still a floor: script-written commits never got one</span>
-        <span class="src">git log --no-merges --format=%H --grep='Co-Authored-By: Claude' 854ae5900 | wc -l</span>
+        <span class="src">git log --no-merges --format=%H --grep='Co-Authored-By: Claude' fd022998e | wc -l</span>
       </div>
       <div class="fig">
-        <span class="n">524</span>
+        <span class="n">533</span>
         <span class="what">bugs written down — numbered, most of them closed, none of them forgotten</span>
-        <div class="bar" role="img" aria-label="Of 524 logged bugs: 439 closed, 31 partially closed, 54 open.">
-          <i class="done" style="width:83.8%"></i>
-          <i class="part" style="width:5.9%"></i>
-          <i class="open" style="width:10.3%"></i>
+        <div class="bar" role="img" aria-label="Of 533 logged bugs: 441 closed, 31 partially closed, 61 open.">
+          <i class="done" style="width:82.7%"></i>
+          <i class="part" style="width:5.8%"></i>
+          <i class="open" style="width:11.4%"></i>
         </div>
         <div class="legend">
-          <span><i class="k-done"></i> <b>439</b> closed</span>
+          <span><i class="k-done"></i> <b>441</b> closed</span>
           <span><i class="k-part"></i> <b>31</b> partly</span>
-          <span><i class="k-open"></i> <b>54</b> open</span>
+          <span><i class="k-open"></i> <b>61</b> open</span>
         </div>
         <span class="src">grep -ho '^### BG-[0-9]*' docs/BACKLOG.md docs/backlog-archive-*.md | sort -u | wc -l</span>
       </div>
       <div class="fig">
-        <span class="n">608</span>
+        <span class="n">615</span>
         <span class="what">automated checks, spread over 55 files, that run before a branch reaches
           main — the merge stops at the first failure</span>
         <span class="src">grep -h '^def test_' tools/tests/test_*.py | wc -l</span>
       </div>
       <div class="fig punch">
         <span class="n">1</span>
-        <span class="what">person — 8,057 of 8,060 commits carry one author name. Of the three that do not, two were signed by the fleet and one is the initial commit, with the name typed wrong</span>
-        <span class="src">git shortlog -sn 854ae5900</span>
+        <span class="what">person — 8,215 of 8,218 commits carry one author name. Of the three that do not, two were signed by the fleet and one is the initial commit, with the name typed wrong</span>
+        <span class="src">git shortlog -sn fd022998e</span>
       </div>
     </div>
 
@@ -1156,9 +1191,9 @@ footer.site .imprint-label {
        without anyone starting them.</p>
 
     <p class="note-line key"><strong>A fleet that types fast is the easy half.</strong> The other half
-       is what it is not allowed to do: <b class="num">608</b> automated checks before a branch merges, a nightly review that
+       is what it is not allowed to do: <b class="num">615</b> automated checks before a branch merges, a nightly review that
        reads the diff nobody else read, and every defect that still gets through written down with
-       a number &mdash; <b class="num">524</b> so far, <b class="num">439</b> of
+       a number &mdash; <b class="num">533</b> so far, <b class="num">441</b> of
        them closed. None of that was built for elegance. It was built because the person reading
        the diffs could not catch a bad one by instinct.
        <mark>The interesting part was never the typing.</mark></p>
@@ -1235,7 +1270,7 @@ footer.site .imprint-label {
       <a href="https://optionalindustries.com/numbup/privacy.html">Privacy</a> &middot;
       <a href="https://optionalindustries.com/numbup/terms.html">Terms</a>
     </p>
-    <p class="fine">EUTM 019410838 · Figures measured 31 August 2026 from commit 854ae5900.</p>
+    <p class="fine">EUTM 019410838 · Figures measured 1 September 2026 from commit fd022998e.</p>
   </footer>
 
 </div>
@@ -1262,8 +1297,8 @@ footer.site .imprint-label {
 
   
 
-  var SERIES = [1,16,16,34,80,80,80,89,117,153,160,177,200,200,200,200,206,222,239,247,248,253,276,306,388,418,505,557,585,604,632,638,642,649,655,655,655,655,655,655,655,655,655,657,669,705,718,726,745,794,841,864,896,896,947,1026,1046,1085,1122,1178,1263,1305,1351,1367,1411,1412,1420,1470,1483,1501,1504,1543,1655,1733,1815,1979,2027,2047,2086,2134,2154,2165,2214,2226,2234,2261,2266,2274,2288,2302,2318,2336,2355,2379,2390,2402,2435,2481,2524,2589,2658,2693,2746,2826,2912,3002,3082,3168,3258,3321,3363,3400,3465,3557,3601,3616,3647,3691,3741,3760,3803,3874,3957,4016,4022,4079,4118,4119,4136,4164,4218,4270,4362,4438,4481,4592,4675,4750,4807,4915,5072,5236,5288,5316,5339,5438,5569,5711,5802,5825,5894,6019,6131,6291,6569,6802,7071,7258,7404,7519,7751,7843,8043,8060];
-  var MONTHS = [0,11,41,72,102,133];   
+  var SERIES = [1,16,16,34,80,80,80,89,117,153,160,177,200,200,200,200,206,222,239,247,248,253,276,306,388,418,505,557,585,604,632,638,642,649,655,655,655,655,655,655,655,655,655,657,669,705,718,726,745,794,841,864,896,896,947,1026,1046,1085,1122,1178,1263,1305,1351,1367,1411,1412,1420,1470,1483,1501,1504,1543,1655,1733,1815,1979,2027,2047,2086,2134,2154,2165,2214,2226,2234,2261,2266,2274,2288,2302,2318,2336,2355,2379,2390,2402,2435,2481,2524,2589,2658,2693,2746,2826,2912,3002,3082,3168,3258,3321,3363,3400,3465,3557,3601,3616,3647,3691,3741,3760,3803,3874,3957,4016,4022,4079,4118,4119,4136,4164,4218,4270,4362,4438,4481,4592,4675,4750,4807,4915,5072,5236,5288,5316,5339,5438,5569,5711,5802,5825,5894,6019,6131,6291,6569,6802,7071,7258,7404,7519,7751,7846,8093,8177,8218];
+  var MONTHS = [0,11,41,72,102,133,164];   
   var ALPHA = 154;                          
 
   var big = document.getElementById("growth");
