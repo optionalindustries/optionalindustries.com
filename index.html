@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>Optional Industries — indie game studio in Vienna | numbup</title>
-<meta name="description" content="An independent game studio in Vienna. One person, a fleet of language models, 11,150 commits in 154 days to a closed alpha on iOS and Android.">
+<meta name="description" content="An independent game studio in Vienna. One person, a fleet of language models, 12,943 commits in 154 days to a closed alpha on iOS and Android.">
 <meta name="color-scheme" content="light">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
-<meta name="build-source" content="16558432d">
+<meta name="build-source" content="2129f3f36">
 <link rel="canonical" href="https://optionalindustries.com/">
 
 <script type="application/ld+json">
@@ -48,7 +48,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://optionalindustries.com/">
 <meta property="og:title" content="One person. A fleet of language models. 154 days to a live alpha.">
-<meta property="og:description" content="An independent game studio in Vienna. One person, a fleet of language models, 11,150 commits in 154 days to a closed alpha. Every figure on the page carries the command that measured it.">
+<meta property="og:description" content="An independent game studio in Vienna. One person, a fleet of language models, 12,943 commits in 154 days to a closed alpha. Every figure on the page carries the command that measured it.">
 <meta property="og:image" content="https://optionalindustries.com/assets/og/og-card.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
@@ -56,7 +56,7 @@
 <meta property="og:image:alt" content="A silver-armoured character swinging a sword into a crowd of clown enemies on a green tiled lane.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="One person. A fleet of language models. 154 days to a live alpha.">
-<meta name="twitter:description" content="An independent game studio in Vienna. 11,150 commits in 154 days to a closed alpha — every figure on the page carries the command that measured it.">
+<meta name="twitter:description" content="An independent game studio in Vienna. 12,943 commits in 154 days to a closed alpha — every figure on the page carries the command that measured it.">
 <meta name="twitter:image" content="https://optionalindustries.com/assets/og/og-card.jpg">
 <meta name="twitter:image:alt" content="A silver-armoured character swinging a sword into a crowd of clown enemies on a green tiled lane.">
 
@@ -410,8 +410,6 @@ a { color: inherit; }
 @media (max-width: 640px) { .chart-box canvas { height: 180px; } }
 
 .axis {
-  display: flex;
-  justify-content: space-between;
   padding: 0.15rem clamp(1.1rem, 3vw, 1.7rem) 0;
   font-family: var(--mono);
   font-size: 0.75rem;
@@ -419,6 +417,12 @@ a { color: inherit; }
   color: var(--ink-faint);
   text-transform: uppercase;
 }
+.axis-track { position: relative; height: 1.15em; }
+.axis-track span { position: absolute; top: 0; transform: translateX(-50%); white-space: nowrap; }
+
+.axis-track span:first-child { transform: none; }
+
+@media (max-width: 779px) { .axis-track span:first-child { display: none; } }
 .proof-foot {
   border-top: 1px dashed var(--border);
   margin-top: 0.9rem;
@@ -668,6 +672,30 @@ section { margin-bottom: var(--gap-sec); }
 
 .fig .bar { margin-top: 0.75rem; height: 10px; }
 .fig .legend { margin-top: 0.5rem; font-size: 0.75rem; gap: 0.25rem 0.85rem; }
+
+.share { margin-top: 2.2rem; }
+.share h2 { margin: 0.2rem 0 0.6rem; }
+
+.share-lede {
+  margin: 0 0 1.1rem;
+  max-width: 46ch;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--ink-mute);
+}
+.share-rows { display: flex; flex-direction: column; gap: 0.45rem; }
+.share-row { display: grid; grid-template-columns: 2.6rem 1fr 2.9rem; align-items: center; gap: 0.7rem; }
+.share-row .m,
+.share-row .p { font-family: var(--mono); font-size: 0.78rem; color: var(--ink-mute); }
+.share-row .p { text-align: right; }
+.share-row .m sup { color: var(--amber-dn); }
+.share-row .bar { height: 10px; border-radius: 3px; }
+.share-foot {
+  margin: 0.9rem 0 0.7rem;
+  font-size: 0.82rem;
+  color: var(--ink-mute);
+}
+.share .src { display: block; }
 
 .fig.punch { background: rgba(30, 33, 39, 0.045); }
 
@@ -989,7 +1017,7 @@ footer.site .imprint-label {
         <div class="tags">
           <span class="tag">iOS + Android</span>
           <span class="tag">Godot 4.6</span>
-          <span class="tag live">Build 35</span>
+          <span class="tag live">Build 37</span>
           <span class="tag">Closed alpha</span>
         </div>
         <div class="cta-row">
@@ -1037,7 +1065,7 @@ footer.site .imprint-label {
           <img src="/assets/shots/eras/device_phone.webp" width="1206" height="1977"
                loading="lazy" decoding="async"
                alt="The same game running on a phone: an archer facing an enemy on a green lane in a dark forest, with the equipment slots, the pill bottle and the currency counters below it.">
-          <p class="era-cap"><b>On a phone.</b><span>Build 35, mid-battle.</span></p>
+          <p class="era-cap"><b>On a phone.</b><span>Build 37, mid-battle.</span></p>
         </figure>
         <p class="era-note">Ten eras of gear, and side dungeons named after what they do to you.
            The two above are rendered in engine from the game&rsquo;s own battle scene &mdash;
@@ -1081,19 +1109,20 @@ footer.site .imprint-label {
           <p class="eyebrow">Commits, cumulative</p>
           <h2>The chart documents the pace. numbup is the outcome.</h2>
         </div>
-        <p class="proof-read"><b>11,150</b>commits · 21 mar – 14 sep 2026</p>
+        <p class="proof-read"><b>12,943</b>commits · 21 mar – 20 sep 2026</p>
       </div>
       <div class="chart-box">
         <canvas id="growth" role="img"
-          aria-label="Cumulative commits from 21 March 2026 to 14 September 2026, rising from 1 to 11,150, with the curve steepening sharply through August."></canvas>
+          aria-label="Cumulative commits from 21 March 2026 to 20 September 2026, rising from 1 to 12,943, with the curve steepening sharply through August."></canvas>
       </div>
+      
       <div class="axis">
-        <span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span>
+        <div class="axis-track"><span style="left:0.00%">Mar</span><span style="left:6.01%">Apr</span><span style="left:22.40%">May</span><span style="left:39.34%">Jun</span><span style="left:55.74%">Jul</span><span style="left:72.68%">Aug</span><span style="left:89.62%">Sep</span></div>
       </div>
       <div class="proof-foot">
         <span><span class="mark">▲</span> 22 Aug — alpha opens, 278 commits that day</span>
         <span>15 days with no commit</span>
-        <span>63 / day across six months</span>
+        <span>70.7 / day across six months</span>
       </div>
     </div>
 
@@ -1112,7 +1141,7 @@ footer.site .imprint-label {
           <img src="/assets/shots/after.webp" width="640" height="1280"
                loading="lazy" decoding="async"
                alt="numbup today: 3D characters on a green tiled lane in front of a mountain backdrop, an archer facing three enemies with health bars, and below them the equipment slots, the pill bottle and the navigation bar.">
-          <p class="tn-cap"><b>Day 177.</b> Build 35, closed alpha on iOS and Android.
+          <p class="tn-cap"><b>Day 183.</b> Build 37, closed alpha on iOS and Android.
             <span>Screenshot from an iPhone, mid-battle.</span></p>
         </figure>
       </div>
@@ -1120,47 +1149,74 @@ footer.site .imprint-label {
 
     <div class="figures">
       <div class="fig">
-        <span class="n">177</span>
+        <span class="n">183</span>
         <span class="what">days from the first commit to the commit this page was built from</span>
-        <span class="src">git log --reverse --format=%ad 16558432d | head -1</span>
+        <span class="src">git log --reverse --format=%ad 2129f3f36 | head -1</span>
       </div>
       <div class="fig">
-        <span class="n">11,150</span>
+        <span class="n">12,943</span>
         <span class="what">commits</span>
-        <span class="src">git rev-list --count 16558432d</span>
+        <span class="src">git rev-list --count 2129f3f36</span>
       </div>
       <div class="fig">
-        <span class="n">8,818</span>
-        <span class="what">of 10,342 non-merge commits carry a Claude co-author trailer
-          — and that is still a floor: script-written commits never got one</span>
-        <span class="src">git log --no-merges --format=%H --grep='Co-Authored-By: Claude' 16558432d | wc -l</span>
+        <span class="n">10,281</span>
+        
+        <span class="what">of 11,891 commits — merges left out — were written with
+          Claude at the keyboard, and that is a floor, not a ceiling: the ones written by
+          scripts never got the line that records it</span>
+        <span class="src">git log --no-merges --format=%H --grep='Co-Authored-By: Claude' 2129f3f36 | wc -l</span>
       </div>
       <div class="fig">
-        <span class="n">976</span>
+        <span class="n">1,153</span>
         <span class="what">bugs written down — numbered, most of them closed, none of them forgotten</span>
-        <div class="bar" role="img" aria-label="Of 976 logged bugs: 771 closed, 74 partially closed, 131 open.">
-          <i class="done" style="width:79.0%"></i>
-          <i class="part" style="width:7.6%"></i>
-          <i class="open" style="width:13.4%"></i>
+        <div class="bar" role="img" aria-label="Of 1,153 logged bugs: 938 closed, 119 partially closed, 96 open.">
+          <i class="done" style="width:81.4%"></i>
+          <i class="part" style="width:10.3%"></i>
+          <i class="open" style="width:8.3%"></i>
         </div>
         <div class="legend">
-          <span><i class="k-done"></i> <b>771</b> closed</span>
-          <span><i class="k-part"></i> <b>74</b> partly</span>
-          <span><i class="k-open"></i> <b>131</b> open</span>
+          <span><i class="k-done"></i> <b>938</b> closed</span>
+          <span><i class="k-part"></i> <b>119</b> partly</span>
+          <span><i class="k-open"></i> <b>96</b> open</span>
         </div>
         <span class="src">grep -ho '^### BG-[0-9]*' docs/BACKLOG.md docs/backlog-archive-*.md | sort -u | wc -l</span>
       </div>
       <div class="fig">
-        <span class="n">1,356</span>
-        <span class="what">automated checks, spread over 132 files, that run before a branch reaches
+        <span class="n">1,751</span>
+        <span class="what">automated checks, spread over 157 files, that run before a branch reaches
           main — the merge stops at the first failure</span>
         <span class="src">grep -h '^def test_' tools/tests/test_*.py | wc -l</span>
       </div>
       <div class="fig punch">
         <span class="n">1</span>
-        <span class="what">person — 11,147 of 11,150 commits carry one author name. Of the three that do not, two were signed by the fleet and one is the initial commit, with the name typed wrong</span>
-        <span class="src">git shortlog -sn 16558432d</span>
+        <span class="what">person — 12,940 of 12,943 commits carry one author name. Of the three that do not, two were signed by the fleet and one is the initial commit, with the name typed wrong</span>
+        <span class="src">git shortlog -sn 2129f3f36</span>
       </div>
+    </div>
+
+    
+    <div class="share">
+      <p class="eyebrow">Written with the fleet, by month</p>
+      
+      <h2>Half the commits in March. Nearly all of them in September.</h2>
+      
+      <p class="share-lede">Every commit written with a model carries a line naming it as
+         co-author. This counts them, month by month.</p>
+      <div class="share-rows">
+        <div class="share-row"><span class="m">Mar</span><div class="bar" role="img" aria-label="March 2026: 86 of 159 non-merge commits carry the trailer, 54 percent"><i class="done" style="width:54%"></i></div><span class="p">54%</span></div>
+        <div class="share-row"><span class="m">Apr</span><div class="bar" role="img" aria-label="April 2026: 254 of 484 non-merge commits carry the trailer, 52 percent"><i class="done" style="width:52%"></i></div><span class="p">52%</span></div>
+        <div class="share-row"><span class="m">May</span><div class="bar" role="img" aria-label="May 2026: 708 of 879 non-merge commits carry the trailer, 81 percent"><i class="done" style="width:81%"></i></div><span class="p">81%</span></div>
+        <div class="share-row"><span class="m">Jun</span><div class="bar" role="img" aria-label="June 2026: 956 of 1095 non-merge commits carry the trailer, 87 percent"><i class="done" style="width:87%"></i></div><span class="p">87%</span></div>
+        <div class="share-row"><span class="m">Jul</span><div class="bar" role="img" aria-label="July 2026: 1431 of 1565 non-merge commits carry the trailer, 91 percent"><i class="done" style="width:91%"></i></div><span class="p">91%</span></div>
+        <div class="share-row"><span class="m">Aug</span><div class="bar" role="img" aria-label="August 2026: 3007 of 3521 non-merge commits carry the trailer, 85 percent"><i class="done" style="width:85%"></i></div><span class="p">85%</span></div>
+        <div class="share-row"><span class="m">Sep<sup>*</sup></span><div class="bar" role="img" aria-label="September 2026: 3839 of 4188 non-merge commits carry the trailer, 92 percent"><i class="done" style="width:92%"></i></div><span class="p">92%</span></div>
+      </div>
+      
+      <p class="share-foot">March 54&thinsp;% &rarr; September
+        92&thinsp;%, merges left out of both counts. The dip in August is not a
+        change of heart — scripts had started writing commits too, and scripts don&rsquo;t sign.
+        <sup>*</sup>&#8239;month still running.</p>
+      <span class="src">git log --no-merges --date=format:%Y-%m --format=%ad --grep='Co-Authored-By: Claude' 2129f3f36</span>
     </div>
 
     <p class="note-line key"><strong>Not one line of numbup was typed by hand.</strong> It could not
@@ -1191,9 +1247,9 @@ footer.site .imprint-label {
        without anyone starting them.</p>
 
     <p class="note-line key"><strong>A fleet that types fast is the easy half.</strong> The other half
-       is what it is not allowed to do: <b class="num">1,356</b> automated checks before a branch merges, a nightly review that
+       is what it is not allowed to do: <b class="num">1,751</b> automated checks before a branch merges, a nightly review that
        reads the diff nobody else read, and every defect that still gets through written down with
-       a number &mdash; <b class="num">976</b> so far, <b class="num">771</b> of
+       a number &mdash; <b class="num">1,153</b> so far, <b class="num">938</b> of
        them closed. None of that was built for elegance. It was built because the person reading
        the diffs could not catch a bad one by instinct.
        <mark>The interesting part was never the typing.</mark></p>
@@ -1270,7 +1326,7 @@ footer.site .imprint-label {
       <a href="https://optionalindustries.com/numbup/privacy.html">Privacy</a> &middot;
       <a href="https://optionalindustries.com/numbup/terms.html">Terms</a>
     </p>
-    <p class="fine">EUTM 019410838 · Figures measured 14 September 2026 from commit 16558432d.</p>
+    <p class="fine">EUTM 019410838 · Figures measured 20 September 2026 from commit 2129f3f36.</p>
   </footer>
 
 </div>
@@ -1297,7 +1353,7 @@ footer.site .imprint-label {
 
   
 
-  var SERIES = [1,16,16,34,80,80,80,89,117,153,160,177,200,200,200,200,206,222,239,247,248,253,276,306,388,418,505,557,585,604,632,638,642,649,655,655,655,655,655,655,655,655,655,657,669,705,718,726,745,794,841,864,896,896,947,1026,1046,1085,1122,1178,1263,1305,1351,1367,1411,1412,1420,1470,1483,1501,1504,1543,1655,1733,1815,1979,2027,2047,2086,2134,2154,2165,2214,2226,2234,2261,2266,2274,2288,2302,2318,2336,2355,2379,2390,2402,2435,2481,2524,2589,2658,2693,2746,2826,2912,3002,3082,3168,3258,3321,3363,3400,3465,3557,3601,3616,3647,3691,3741,3760,3803,3874,3957,4016,4022,4079,4118,4119,4136,4164,4218,4270,4362,4438,4481,4592,4675,4750,4807,4915,5072,5236,5288,5316,5339,5438,5569,5711,5802,5825,5894,6019,6133,6293,6571,6804,7073,7260,7406,7521,7753,7848,8095,8202,8388,8774,9006,9233,9448,9640,9929,10152,10347,10558,10860,11046,11141,11150];
+  var SERIES = [1,16,16,34,80,80,80,89,117,153,160,177,200,200,200,200,206,222,239,247,248,253,276,306,388,418,505,557,585,604,632,638,642,649,655,655,655,655,655,655,655,655,655,657,669,705,718,726,745,794,841,864,896,896,947,1026,1046,1085,1122,1178,1263,1305,1351,1367,1411,1412,1420,1470,1483,1501,1504,1543,1655,1733,1815,1979,2027,2047,2086,2134,2154,2165,2214,2226,2234,2261,2266,2274,2288,2302,2318,2336,2355,2379,2390,2402,2435,2481,2524,2589,2658,2693,2746,2826,2912,3002,3082,3168,3258,3321,3363,3400,3465,3557,3601,3616,3647,3691,3741,3760,3803,3874,3957,4016,4022,4079,4118,4119,4136,4164,4218,4270,4362,4438,4481,4592,4675,4750,4807,4915,5072,5236,5288,5316,5339,5438,5569,5711,5802,5825,5894,6019,6133,6293,6571,6804,7073,7260,7406,7521,7753,7848,8095,8202,8388,8774,9006,9233,9448,9640,9929,10155,10366,10577,10879,11068,11219,11401,11762,11996,12254,12519,12782,12943];
   var MONTHS = [0,11,41,72,102,133,164];   
   var ALPHA = 154;                          
 

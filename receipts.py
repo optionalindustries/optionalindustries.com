@@ -75,10 +75,14 @@ def _git(*args: str) -> str:
     """Run git in the repository root and return stdout."""
     result = subprocess.run(
         ["git", "-C", str(ROOT), *args],
-        capture_output=True, text=True, check=False,
+        capture_output=True,
+        text=True,
+        check=False,
     )
     if result.returncode != 0:
-        raise MeasurementError(f"git {' '.join(args)} -> {result.returncode}: {result.stderr.strip()}")
+        raise MeasurementError(
+            f"git {' '.join(args)} -> {result.returncode}: {result.stderr.strip()}"
+        )
     return result.stdout.strip()
 
 
@@ -97,6 +101,7 @@ def _paths(rev: str, prefix: str, pattern: str) -> list[str]:
 # ------------------------------------------------------------------ measurements
 # Every function carries the command that stands under its number on the page.
 # Change the measurement here and the footnote there changes with it — both together.
+
 
 def commit_days(rev: str) -> list[date]:
     """git log --format=%ad --date=short — one date per commit, oldest first."""
@@ -133,8 +138,52 @@ def nonmerge_co_author(rev: str) -> dict:
     with_trailer = len({line for line in raw.splitlines() if line})
     if with_trailer > total:
         raise MeasurementError(f"more trailers ({with_trailer}) than non-merge commits ({total})")
-    return {"total": total, "with_trailer": with_trailer,
-            "merges": int(_git("rev-list", "--count", "--merges", rev))}
+    return {
+        "total": total,
+        "with_trailer": with_trailer,
+        "merges": int(_git("rev-list", "--count", "--merges", rev)),
+    }
+
+
+def co_author_by_month(rev: str) -> list[dict]:
+    """git log --no-merges --date=format:%Y-%m --format=%ad --grep='Co-Authored-By: Claude'
+
+    The same share as nonmerge_co_author, but resolved by month instead of summed over
+    the whole history. One number for the whole repository hides the thing that actually
+    happened: the share was barely half at the start and is near-total now. That movement
+    is the claim this page makes, so it has to be measured, not asserted.
+
+    Merges stay out of both numerator and denominator, for the reason given above. The
+    LAST entry is almost always a partial month — the page has to label it as one, so the
+    flag travels with the data rather than being re-derived in the template.
+    """
+
+    def by_month(*extra: str) -> Counter:
+        raw = _git("log", "--no-merges", "--date=format:%Y-%m", "--format=%ad", *extra, rev)
+        return Counter(line.strip() for line in raw.splitlines() if line.strip())
+
+    total = by_month()
+    trailer = by_month("--grep=Co-Authored-By: Claude")
+    if not total:
+        raise MeasurementError("no non-merge commits found — cannot build the monthly share")
+
+    measured = _git("show", "-s", "--format=%cs", rev).strip()[:7]
+    out = []
+    for month in sorted(total):
+        n, t = total[month], trailer.get(month, 0)
+        if t > n:
+            raise MeasurementError(f"{month}: more trailers ({t}) than non-merge commits ({n})")
+        out.append(
+            {
+                "month": month,
+                "label": date.fromisoformat(month + "-01").strftime("%b"),
+                "total": n,
+                "trailer": t,
+                "pct": round(t * 100 / n),
+                "partial": month == measured,
+            }
+        )
+    return out
 
 
 def authors(rev: str) -> dict:
@@ -174,7 +223,9 @@ def bugs(rev: str) -> dict:
     files: list[str] = []
     for pattern in BACKLOG_GLOBS:
         prefix, _, tail = pattern.rpartition("/")
-        files += _paths(rev, prefix or ".", "^" + re.escape(prefix + "/") + tail.replace("*", "[^/]*") + "$")
+        files += _paths(
+            rev, prefix or ".", "^" + re.escape(prefix + "/") + tail.replace("*", "[^/]*") + "$"
+        )
     if not files:
         raise MeasurementError(f"no backlog file in the commit: {BACKLOG_GLOBS}")
 
@@ -183,7 +234,7 @@ def bugs(rev: str) -> dict:
     for path in files:
         entries, order, _dupes, _wrong = backlog_audit.parse_entries(_blob(rev, path))
         for key in order:
-            if key in seen:          # same entry number in active AND archive: count it once
+            if key in seen:  # same entry number in active AND archive: count it once
                 continue
             seen.add(key)
             state, _has_field = backlog_audit.classify(entries[key])
@@ -241,6 +292,7 @@ def curve(days: list[date], start: date, end: date) -> list[int]:
 
 # ------------------------------------------------------------------ aggregate
 
+
 def build_label(rev: str) -> dict:
     """version/code + version/name from code/export_presets.cfg.
 
@@ -262,12 +314,18 @@ def build_label(rev: str) -> dict:
     return {"code": int(codes[0]), "name": names[0], "presets": len(codes)}
 
 
-def month_starts(start: date, end: date) -> list[int]:
-    """Curve indices of the first of each month. The draft carried [0,11,41,72,102,133] as a
-    literal list in the script — one that goes quietly wrong at the first month boundary
-    after the build. Index 0 is the first commit day itself, so the axis has a left mark.
+def month_axis(start: date, end: date) -> list[dict]:
+    """Curve index AND label of the first of each month — one list, so the tick marks drawn
+    on the canvas and the words written under it cannot say different things.
+
+    They did: the marks came from here and grew with the history, while the labels were six
+    hand-typed spans in the template. At the seventh month the chart drew a mark September
+    had no name for (BG-828). Same failure the draft had — see month_starts below — one step
+    further down the page.
+
+    Index 0 is the first commit day itself, so the axis has a left mark.
     """
-    out = [0]
+    out = [{"idx": 0, "label": start.strftime("%b")}]
     y, m = start.year, start.month
     while True:
         m += 1
@@ -276,13 +334,21 @@ def month_starts(start: date, end: date) -> list[int]:
         d = date(y, m, 1)
         if d > end:
             break
-        out.append((d - start).days)
+        out.append({"idx": (d - start).days, "label": d.strftime("%b")})
     return out
+
+
+def month_starts(start: date, end: date) -> list[int]:
+    """Curve indices of the first of each month. The draft carried [0,11,41,72,102,133] as a
+    literal list in the script — one that goes quietly wrong at the first month boundary
+    after the build. Derived from month_axis so marks and labels share one source.
+    """
+    return [p["idx"] for p in month_axis(start, end)]
 
 
 def collect(rev_arg: str = "HEAD") -> dict:
     """Measure every figure against ONE commit. Raises on any failed measurement."""
-    rev = _git("rev-parse", rev_arg)          # rule 2: resolve once, then hold on to it
+    rev = _git("rev-parse", rev_arg)  # rule 2: resolve once, then hold on to it
     short = _git("rev-parse", "--short", rev)
 
     days_list = commit_days(rev)
@@ -307,6 +373,7 @@ def collect(rev_arg: str = "HEAD") -> dict:
         "commits": n_commits,
         "co_author_commits": co_author_commits(rev),
         "nonmerge": nonmerge_co_author(rev),
+        "co_author_by_month": co_author_by_month(rev),
         "authors": authors(rev),
         "bugs": bugs(rev),
         "tests": tests(rev),
@@ -319,6 +386,7 @@ def collect(rev_arg: str = "HEAD") -> dict:
         "peak_date": (start + timedelta(days=peak_i + 1)).isoformat(),
         "silent_days": sum(1 for d in deltas if d == 0),
         "curve": series,
+        "month_axis": month_axis(start, head_day),
         "month_starts": month_starts(start, head_day),
         "months_span": len(month_starts(start, head_day)) - 1,
         # provenance
@@ -346,19 +414,21 @@ def main() -> None:
 
     b, t, a = data["bugs"], data["tests"], data["authors"]
     rows = [
-        (thousands(data["alpha_days"]),        "days from the first commit to the closed alpha"),
-        (thousands(data["days"]),              "days from the first commit to this snapshot"),
-        (thousands(data["commits"]),           "commits"),
+        (thousands(data["alpha_days"]), "days from the first commit to the closed alpha"),
+        (thousands(data["days"]), "days from the first commit to this snapshot"),
+        (thousands(data["commits"]), "commits"),
         (thousands(data["co_author_commits"]), "of those with Claude as co-author"),
-        (thousands(b["total"]),                f"bugs written down ({b['closed']} closed, "
-                                               f"{b['partial']} partly, {b['open']} open)"),
-        (thousands(t["functions"]),            f"automated checks, in {t['files']} files"),
-        (thousands(a["top"]),                  f"commits by one author name (of {a['total']})"),
+        (
+            thousands(b["total"]),
+            f"bugs written down ({b['closed']} closed, {b['partial']} partly, {b['open']} open)",
+        ),
+        (thousands(t["functions"]), f"automated checks, in {t['files']} files"),
+        (thousands(a["top"]), f"commits by one author name (of {a['total']})"),
         ("", ""),
-        (f"{data['commits_per_day']} / day",   "commits, sustained"),
-        (thousands(data["peak_commits"]),      f"commits on the busiest day ({data['peak_date']})"),
-        (thousands(data["silent_days"]),       "days with no commit"),
-        (thousands(data["migrations"]),        "database migrations"),
+        (f"{data['commits_per_day']} / day", "commits, sustained"),
+        (thousands(data["peak_commits"]), f"commits on the busiest day ({data['peak_date']})"),
+        (thousands(data["silent_days"]), "days with no commit"),
+        (thousands(data["migrations"]), "database migrations"),
     ]
     width = max(len(value) for value, _ in rows)
     for value, label in rows:
