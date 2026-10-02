@@ -237,7 +237,8 @@ def bugs(rev: str) -> dict:
             if key in seen:  # same entry number in active AND archive: count it once
                 continue
             seen.add(key)
-            state, _has_field = backlog_audit.classify(entries[key])
+            # eigene Nummer mitgeben: ohne sie blendet classify keine Fremd-Marken aus (BG-1513)
+            state, _has_field = backlog_audit.classify(entries[key], key)
             states["OPEN" if state == "TRIPWIRE" else state] += 1
 
     total = sum(states.values())
