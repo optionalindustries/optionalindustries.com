@@ -58,7 +58,7 @@ ALPHA_DATE = date(2026, 8, 22)
 
 # Backlog sources: the active file AND the archives. Closed entries are moved into archives
 # as the active file grows — counting only docs/BACKLOG.md reports the current stock, not the
-# total. The page says "bugs written down ... none of them forgotten"; archived is not
+# total. The page says "issues written down ... none of them forgotten"; archived is not
 # forgotten, so the archives count too.
 BACKLOG_GLOBS = ["docs/BACKLOG.md", "docs/backlog-archive-*.md"]
 
@@ -421,7 +421,7 @@ def main() -> None:
         (thousands(data["co_author_commits"]), "of those with Claude as co-author"),
         (
             thousands(b["total"]),
-            f"bugs written down ({b['closed']} closed, {b['partial']} partly, {b['open']} open)",
+            f"issues written down — bugs, features, findings ({b['closed']} closed, {b['partial']} partly, {b['open']} open)",
         ),
         (thousands(t["functions"]), f"automated checks, in {t['files']} files"),
         (thousands(a["top"]), f"commits by one author name (of {a['total']})"),
